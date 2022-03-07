@@ -17,8 +17,10 @@ public class BankAccount {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 	
-		// New account
-		System.out.print("Press 'L' for login and 'S' for sign-up");
+		// New account 
+		
+		// assumption: User class name: User
+		System.out.print("Enter 'L' for login and 'S' for sign-up");
 		String x = userInputString.nextLine();
 		if (x.equals("L") || x.equals("l")) {
 			System.out.println("Username");
@@ -29,16 +31,24 @@ public class BankAccount {
 			
 		}
 		
-		// For testing
+		// For testing (both account 1 and 2)
 		BankAccount acc1 = new BankAccount();
 		acc1.balance = 10000;
 		acc1.bankID = 000001;
 		acc1.iban = "NL01PFMB1234567890";
 		bankAccounts[0] = acc1;
 		
-		System.out.print("Press 'O' for Balance overview");
+		BankAccount acc2 = new BankAccount();
+		acc2.balance = 42342;
+		acc2.bankID = 000002;
+		acc2.iban = "NL01PFMB1234999899";
+		bankAccounts[1] = acc2;
+		
+		
+		
+		System.out.print("Enter '1' for Balance overview");
 		String y = userInputString.nextLine();
-		if (y.equals("O") || y.equals("o")) {
+		if (y.equals("1")) {
 			showOverview();
 		}
 
@@ -47,9 +57,12 @@ public class BankAccount {
 
 	public static void showOverview() {
 		// TODO Auto-generated method stub
-		System.out.printf("BankID: %06d\n", bankAccounts[0].bankID);
-		System.out.printf("BankID: %s\n", bankAccounts[0].iban);
-		System.out.printf("Bank balance: %.2f\n", bankAccounts[0].balance);
+		System.out.println("***************************************");
+		System.out.println("*************** Overview **************");
+		System.out.println("***************************************");
+		System.out.printf("BankID: %06d\n", bankAccounts[1].bankID);
+		System.out.printf("BankID: %s\n", bankAccounts[1].iban);
+		System.out.printf("Bank balance: %.2f\n", bankAccounts[1].balance);
 	}
 
 	public double getBalance() {
@@ -60,11 +73,5 @@ public class BankAccount {
 		this.balance = balance;
 	}
 
-
-
-	public void viewBalance() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
