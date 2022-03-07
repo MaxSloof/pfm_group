@@ -22,13 +22,25 @@ public class BankAccount {
 		// assumption: User class name: User
 		System.out.print("Enter 'L' for login and 'S' for sign-up");
 		String x = userInputString.nextLine();
-		if (x.equals("L") || x.equals("l")) {
+		
+		// Login or Sign up
+		if (x.equals("L") || x.equals("l")) { // User wants to login
 			System.out.println("Username");
 			String username = userInputString.nextLine();
 			System.out.println("Password");
 			String password = userInputString.nextLine();
-		} if (x.equals("S") || x.equals("s")) {
 			
+			
+			// Should go through the txt file and find the correct lines. 
+			findBankAccount();
+			
+		} if (x.equals("S") || x.equals("s")) { // User wants to create new bank account
+			BankAccount[] bankArray1 = new BankAccount[1];
+			String name;
+			System.out.print("Enter name: ");
+			name = userInputString.nextLine();
+			
+			// Read latest bankID and IBAN and add 1
 		}
 		
 		// For testing (both account 1 and 2)
@@ -71,6 +83,22 @@ public class BankAccount {
 
 	public void setBalance(double balance) {
 		this.balance = balance;
+	}
+
+	public String getIban() {
+		return iban;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
+	public int getBankID() {
+		return bankID;
+	}
+
+	public void setBankID(int bankID) {
+		this.bankID = bankID;
 	}
 
 

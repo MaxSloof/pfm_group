@@ -1,17 +1,12 @@
 package groupPackage;
 
-public class Transactions {
+public class Transactions (BankAccount balance) {
 
 	public depositFunds(BankAccount.balance) {
 		
 	}
 	
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	
 		
-		
-	}
 
 }
