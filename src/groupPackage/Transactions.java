@@ -1,4 +1,4 @@
-package groupPackagae;
+package groupPackage;
 
 public class Transactions {
 
