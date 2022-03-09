@@ -139,9 +139,8 @@ public class BankAccount {
 		int stIndex = 0; // keeps track of the line number 
 		try{ 
 			BufferedReader myFile = new BufferedReader (new FileReader("bankaccounts.txt")); 
-			String sCurrentLine; 
 
-			while ((sCurrentLine = myFile.readLine()) != null){ 
+			while ((myFile.readLine()) != null){ 
 				stIndex++; 
 			} 
 			myFile.close(); 
