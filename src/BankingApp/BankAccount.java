@@ -1,4 +1,4 @@
-package groupPackage;
+package BankingApp;
 
 import java.io.*;
 import java.text.DecimalFormat;
@@ -6,9 +6,9 @@ import java.util.*;
 
 public class BankAccount {
 	String iban;
-	String bankID;
+	int bankID;
 	double balance;
-	String userID; // User class still needs to be added
+	int userID; // User class still needs to be added
 	static String currUserID;
 
 	static BankAccount[] bankAccounts = new BankAccount[100];
@@ -16,8 +16,6 @@ public class BankAccount {
 	static Scanner userInputInt = new Scanner(System.in);
 	static Scanner userInputString = new Scanner(System.in);
 	static Scanner userInputDouble = new Scanner(System.in);
-
-	BankAccount currAcc = new BankAccount();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -72,10 +70,10 @@ public class BankAccount {
 			// Create new bankID and UserID, by adding 1 to the latest one. 
 			DecimalFormat dfBankID = new DecimalFormat("000000");
 			String tempBankID = dfBankID.format(returnIndex() + 1);
-			
+
 			DecimalFormat dfUserID = new DecimalFormat("000000");
 			String tempUserID = dfUserID.format(returnIndex() + 100001);
-			
+
 			double tempBalance = 0;		// Balance (= 0, because new account)
 			writeNewAccount(tempIban, tempBankID, tempBalance, tempUserID);
 			System.out.println("The current balance: 0.00");
@@ -125,24 +123,32 @@ public class BankAccount {
 		this.iban = iban;
 	}
 
-	public String getBankID() {
+	public int getBankID() {
 		return bankID;
 	}
 
-	public void setBankID(String bankID) {
+	public void setBankID(int bankID) {
 		this.bankID = bankID;
 	}
 
 	// Creating new account when user wants to sign-up
-	public static void writeNewAccount(String newIban, String newBankID, double newBalance, String newUserID) {
+	public static void writeNewAccount(int newUserID) {
 		// TODO Auto-generated method stub
 		BankAccount[] bankArray1 = new BankAccount[1];
-		String tempIban = newIban;
-		String tempBankID = newBankID;
-		double tempBalance = newBalance;
-		String tempUserID = newUserID;
+		String newIban;
+		int newBankID;
+		double newBalance = 0;
 
-		bankArray1[0] = new BankAccount(tempIban, tempBankID, tempBalance, tempUserID);
+		// Create new IBAN
+		DecimalFormat dfIban = new DecimalFormat("0000000000");
+		newIban = "NL01PFMB" + dfIban.format(returnIndex() + 1);
+		System.out.printf("Your new IBAN: %s\n", newIban); 
+		System.out.println("Account creation succesfull");
+
+		// Create new bankID 
+		newBankID = returnIndex() + 1;
+
+		bankArray1[0] = new BankAccount(newIban, newBankID, newBalance, Interface.TempNewUserID);
 		writeFile(bankArray1);
 	}
 
@@ -184,14 +190,13 @@ public class BankAccount {
 		} 
 		BankAccount[] baArray = new BankAccount[stIndex]; 
 		System.arraycopy(stTemp, 0, baArray, 0, stIndex); 
-		
+
 		for(int i = 0; i < baArray.length; i++) {
 			if (baArray[i].userID.equals(currUserID)) {
-				currAcc.balance = baArray[i].balance;
-				currAcc.bankID = baArray[i].bankID;
-				currAcc.iban = baArray[i].iban;
-				currAcc.userID = currUserID;
-				bankAccounts[0] = currAcc;
+				bankAccounts[0].balance = baArray[i].balance;
+				bankAccounts[0].bankID = baArray[i].bankID;
+				bankAccounts[0].iban = baArray[i].iban;
+				bankAccounts[0].userID = currUserID;
 			}
 		} 
 
@@ -204,12 +209,9 @@ public class BankAccount {
 		try{ 
 			BufferedReader myFile = new BufferedReader (new FileReader("bankaccounts.txt")); 
 			String sCurrentLine; 
-			String[] uCurrent = new String[4]; 
 
 			while ((sCurrentLine = myFile.readLine()) != null){ 
-				uCurrent = sCurrentLine.split("\t"); 
-				stTemp[stIndex] = new BankAccount(uCurrent[0], uCurrent[1],
-						Double.parseDouble(uCurrent[2]), uCurrent[3]); 
+				
 				stIndex++; 
 			} 
 			myFile.close(); 
@@ -225,7 +227,7 @@ public class BankAccount {
 
 
 	// Constructors
-	public BankAccount(String iban, String bankID, double balance, String userID) {
+	public BankAccount(String iban, int bankID, double balance, int userID) {
 		this.iban = iban;
 		this.bankID = bankID;
 		this.balance = balance;

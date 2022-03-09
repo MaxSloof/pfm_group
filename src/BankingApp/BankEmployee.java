@@ -1,4 +1,4 @@
-package bankingApp;
+package BankingApp;
 
 public class BankEmployee extends User {
 	static int Num_bank_employees=0;

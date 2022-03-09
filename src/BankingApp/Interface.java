@@ -1,6 +1,7 @@
-package bankingApp;
+package BankingApp;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.Scanner;
 
@@ -16,9 +17,9 @@ public class Interface {
 	static BankEmployee[] BankEmployeeArray = new BankEmployee[20]; //let the maximum number = 20 
 	static String[] current_line = new String[5];
 
-	static String TempFirstName, TempLastName, TempNewUserName, TempNewUserPassword, AccountType;
+	static String TempFirstName, TempLastName, TempNewUserName, TempNewUserPassword, TempNewUserPasswordConfirm, AccountType;
 	static int TempNewUserID; 
-	
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -81,18 +82,18 @@ public class Interface {
 				else if(BankEmployeeLoggedIn) BankEmployeeIntefrace(my_bank_employees[LoggedInIndex],my_account_holders); 
 				else if(AccountHolderLoggedIn) AccountHolderIntefrace(my_account_holders[LoggedInIndex]);
 			}
-			
+
 			else if (userChoice==2){
 				System.out.println("BYE!");
 				break; 
 			}
-			
+
 			else System.out.println("Please enter a valid choice");
 		} 
 	}
 
 	public static void AccountHolderIntefrace(AccountHolder my_loggedIn_account_holder){ 
-		
+
 		System.out.println("You are now accessing the Account Holder's interface");
 
 		while(true){
@@ -105,11 +106,11 @@ public class Interface {
 			System.out.println("--------------------------------------------------------"); 
 			System.out.print("I want to: ");
 			int userChoice = my_scanINT.nextInt();
-			
+
 			if(userChoice==1){
 				System.out.println("Your balance is: "+ my_loggedIn_account_holder.Balance);
 			}
-			
+
 			else if(userChoice==2) {
 				System.out.println("Your First Name is: "+ my_loggedIn_account_holder.FirstName);
 				System.out.println("Your Last Name is: "+ my_loggedIn_account_holder.LastName);
@@ -117,7 +118,7 @@ public class Interface {
 				System.out.println("Your Password is: "+ my_loggedIn_account_holder.GetPassword(true));
 				System.out.println("Your UserID is: "+ my_loggedIn_account_holder.UserID);
 			}
-			
+
 			else if(userChoice==3) {
 				System.out.println("--------------------------------------------------------"); 
 				System.out.println("What Account Detail would you like to modify?");
@@ -133,28 +134,28 @@ public class Interface {
 				if(userChoice1==1){
 					System.out.println("What is the new First Name you would like to use?");
 					String inputFirstName = userInputString.nextLine();
-					
+
 					//???
 				}
 
 				else if(userChoice1==2) {
 					System.out.println("What is the new Last Name you would like to use?");
 					String inputLastName = userInputString.nextLine();
-					
+
 					//???
 				}
 
 				else if(userChoice1==3) {
 					System.out.println("What is the new Username you would like to use?");
 					String inputUserName = userInputString.nextLine();
-					
+
 					//???
 				}
 
 				else if(userChoice1==4) {
 					System.out.println("What is the new Password you would like to use?");
 					String inputPassword = userInputString.nextLine();
-					
+
 					//???
 				}
 
@@ -166,18 +167,18 @@ public class Interface {
 			else if(userChoice==4){
 				System.out.println("You are logged out"); break;
 			} 
-		
-			
+
+
 			else System.out.println("Please enter valid choice");
 		}
 	}
-			
-		
+
+
 
 	public static void BankEmployeeIntefrace(BankEmployee my_loggedIn_bank_employee, AccountHolder[] my_account_holders_local){ 
-		
+
 		System.out.println("You are now accessing the Bank Employee's interface");
-		
+
 		while(true){
 			System.out.println("--------------------------------------------------------"); 
 			System.out.println("Please select from the menu option below"); 
@@ -188,41 +189,41 @@ public class Interface {
 			System.out.println("--------------------------------------------------------");
 			System.out.print("I want to: ");
 			int userChoice = my_scanINT.nextInt();
-			
+
 			if(userChoice==1){						
 				System.out.print ("What is the Username of the Client Account you want to view?: ");									
 				String inputUserName = userInputInt.nextLine();	
-				
+
 				//???
 			}	
-			
-		
+
+
 			else if(userChoice==2) {
 				System.out.print ("What is the Username of the Client Account you want to edit?: ");									
 				String inputUserName = userInputInt.nextLine();		
-				
+
 				// ???
 			}
-			
-			
+
+
 			else if(userChoice==3) {
 				System.out.print ("What is the Username of the Client Account you want to remove?: ");									
 				int inputUserName = userInputInt.nextInt();		
-				
+
 				//???
 			}
-		
+
 			else if(userChoice==4){
 				System.out.println("You are logged out"); break;
 			} 
-			
-		
+
+
 			else System.out.println("Please enter valid choice");
 		}
 	}
-		
-	
-	
+
+
+
 
 	public static void SignUp() {
 		System.out.print("Please enter your first name: ");
@@ -233,16 +234,29 @@ public class Interface {
 		TempNewUserName = my_scan.nextLine(); 
 		System.out.print("Please enter your password: ");
 		TempNewUserPassword = my_scan.nextLine(); 
-		System.out.print("Please enter your userID: ");
-		TempNewUserID = my_scanINT.nextInt();
+		System.out.print("Please confirm your password: ");
+		TempNewUserPasswordConfirm = my_scan.nextLine(); 
+
+		while (!TempNewUserPassword.equals(TempNewUserPasswordConfirm)) {
+			System.out.println("Please re-enter password");
+			System.out.print("Enter new password: ");
+			TempNewUserPassword = userInputString.nextLine();
+			System.out.print("Confirm password: ");
+			TempNewUserPasswordConfirm = userInputString.nextLine();
+		}
+		
+		// Create new UserID
+		TempNewUserID = returnIndex()+100;
 		AccountType = "AccountHolder";
+		
 		AccountHolderArray[AccountHolder.Num_account_holders] = new AccountHolder(TempNewUserID, TempFirstName, TempLastName, AccountType, TempNewUserName, TempNewUserPassword);
 		appendFile(TempFirstName, TempLastName, TempNewUserName, TempNewUserPassword, TempNewUserID, AccountType);
+		BankAccount.writeNewAccount(TempNewUserID);
 	}
-	
 
-	
-	
+
+
+
 	public static void appendFile(String TempFirstName, String TempLastName, String TempNewUserName, String TempNewUserPassword, int TempNewUserID, String AccountType){
 
 		try{	
@@ -256,15 +270,15 @@ public class Interface {
 			System.out.print("There is an I/O error when writing.");
 		}
 	}
-	
+
 
 	public static void overWriteFile(String TempFirstName, String TempLastName, String TempNewUserName, String TempNewUserPassword, int TempNewUserID, String AccountType){
 		// TODO
-	
+
 		try{
 			PrintWriter wr = new PrintWriter(
 					new BufferedWriter (new FileWriter ("UserData.txt", false)));			
-			
+
 			for (int i = 0; i < TempFirstName.length(); i++){
 				wr.println(TempFirstName + "," + TempLastName + "," + TempNewUserName + "," + TempNewUserPassword + "," + TempNewUserID + "," + AccountType);
 			}
@@ -274,5 +288,26 @@ public class Interface {
 			System.out.print ("There is an I/O error when writing.");												
 		}
 	}	
-				
-	}
+
+	public static int returnIndex(){ 
+		Interface[] stTemp = new Interface[100]; // 100 here is an upper bound 
+		int stIndex = 0; // keeps track of the line number 
+		try{ 
+			BufferedReader myFile = new BufferedReader (new FileReader("UserData.txt")); 
+			String sCurrentLine; 
+			
+
+			while ((sCurrentLine = myFile.readLine()) != null){ 
+				stIndex++; 
+			} 
+			myFile.close(); 
+
+		} catch(IOException e){ 
+			System.out.print("Wrong! (Reading)"); 
+		} 
+		Interface[] baArray = new Interface[stIndex]; 
+		System.arraycopy(stTemp, 0, baArray, 0, stIndex); 
+		return stIndex; 
+
+	}			
+}

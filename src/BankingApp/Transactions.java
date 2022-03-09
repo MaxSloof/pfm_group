@@ -1,4 +1,4 @@
-package groupPackage;
+package BankingApp;
 
 public class Transactions (BankAccount balance) {
 

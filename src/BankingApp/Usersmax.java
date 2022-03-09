@@ -1,4 +1,4 @@
-package groupPackage;
+package BankingApp;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
