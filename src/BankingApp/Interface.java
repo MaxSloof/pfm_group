@@ -141,46 +141,21 @@ public class Interface {
 			else if(userChoice==6) {
 				System.out.println("--------------------------------------------------------"); 
 				System.out.println("What Account Detail would you like to modify?");
-				System.out.println("(1) Change my First Name");		//To be added
-				System.out.println("(2) Change my Last Name");		//To be added
-				System.out.println("(3) Change my Username");		//To be added
-				System.out.println("(4) Change my Password"); 		//To be added
-				System.out.println("(5) Change my UserID"); 		//To be added
+				System.out.println("(1) Change my First Name");		
+				System.out.println("(2) Change my Last Name");		
+				System.out.println("(3) Change my Username");		
+				System.out.println("(4) Change my Password"); 		
 				System.out.println("--------------------------------------------------------"); 
 				System.out.print("I want to: ");
 				int userChoice1 = my_scanINT.nextInt();	
+				
+				if(userChoice1 == 1) {System.out.print("My new first name: ");}
+				else if(userChoice1 == 2) {System.out.print("My new last name: ");}
+				else if(userChoice1 == 3) {System.out.print("My new username: ");}
+				else if(userChoice1 == 4) {System.out.print("My new password: ");}
+				String input = userInputString.nextLine();
+					User.changeAccountElement(input, my_loggedIn_account_holder.UserID, userChoice1);
 
-				if(userChoice1==1){
-					System.out.println("What is the new First Name you would like to use?");
-					String inputFirstName = userInputString.nextLine();
-					User.changeFirstName(inputFirstName, my_loggedIn_account_holder.UserID);
-					//???
-					
-				}
-				else if(userChoice1==2) {
-					System.out.println("What is the new Last Name you would like to use?");
-					String inputLastName = userInputString.nextLine();
-
-					//???
-				}
-
-				else if(userChoice1==3) {
-					System.out.println("What is the new Username you would like to use?");
-					String inputUserName = userInputString.nextLine();
-
-					//???
-				}
-
-				else if(userChoice1==4) {
-					System.out.println("What is the new Password you would like to use?");
-					String inputPassword = userInputString.nextLine();
-
-					//???
-				}
-
-				else if(userChoice1==5) {
-					System.out.println("Unfortunately, it is not possible to change your UserID. Please visit our website or contact us directly for more information."); break;
-				}
 			}
 
 			else if(userChoice==4){
@@ -292,15 +267,17 @@ public class Interface {
 	}
 
 
-	public static void overWriteFile(String TempFirstName, String TempLastName, String TempNewUserName, String TempNewUserPassword, int TempNewUserID, String AccountType){
+	public static void overWriteFile(String[] TempFirstName, String[] TempLastName, String[] TempNewUserName, 
+	String[] TempNewUserPassword, int[] TempNewUserID, String[] AccountType){
 		// TODO
 
 		try{
 			PrintWriter wr = new PrintWriter(
 					new BufferedWriter (new FileWriter ("UserData.txt", false)));			
 
-			for (int i = 0; i < TempFirstName.length(); i++){
-				wr.println(TempFirstName + "," + TempLastName + "," + TempNewUserName + "," + TempNewUserPassword + "," + TempNewUserID + "," + AccountType);
+			for (int i = 0; i < User.NumUser; i++){
+				wr.println(TempFirstName[i] + "," + TempLastName[i] + "," + TempNewUserName[i] + "," + TempNewUserPassword[i] +
+				 "," + TempNewUserID[i] + "," + AccountType[i]);
 			}
 			wr.close();																								
 		} 

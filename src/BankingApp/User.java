@@ -9,7 +9,9 @@ public class User {
 	public String FirstName, LastName, Role;
 	public int UserID;
 	static int NumUser=0; //To store the number of users
-	
+	static User[] myUsers = new User[100];
+
+
 	// Constructor
 	public User(int UserID, String FirstName, String LastName, String Role, String UserName, String Password){
 		this.UserName = UserName;
@@ -29,10 +31,10 @@ public class User {
 		this.Role = Role;
 	}
 
-	public static User[] ReadUserData(){
+	public static User[] ReadUserData() {
 		String LocalFirstName, LocalLastName, LocalUserName, LocalPassword, LocalRole; 
 		int LocalID;
-		boolean FirstLine= true;
+		
 		User[] my_users_Local = new User[20];
 		String[] current_line = new String[5];
 
@@ -40,10 +42,7 @@ public class User {
 			BufferedReader my_reader = new BufferedReader(new FileReader("UserData.txt")); //declaring the reader object
 			String input_line; //Variable to read line by line 
 			while( (input_line=my_reader.readLine()) != null){
-				if (FirstLine){
-					FirstLine= false;
-					continue; 
-				}
+				
 				current_line = input_line.split(","); //split the line at the tab
 				//Current_line is an array:
 				//Order in the database: FirstName, LastName, UserName, Password, ID, Role 
@@ -69,6 +68,7 @@ public class User {
 		catch(IOException e){
 			System.out.println("can't read file"); 
 		}
+		myUsers = my_users_Local;
 		return(my_users_Local);
 	}
 
@@ -92,15 +92,32 @@ public class User {
 		else return("Not Logged In");
 	}
 	
-	public static void changeFirstName(String newFirstName, int loggedInUserID) {
-		User[] my_users_old = new ReadUserData(); 
-		for(int i = 0; i < NumUser++; i++) {
-			if(my_users_old[i].UserID == loggedInUserID) {
-				my_users_old[i].FirstName = newFirstName;
-			}
-			Interface.overWriteFile(my_users_old[i].FirstName, my_users_old[i].LastName, 
-					my_users_old[i].UserName, my_users_old[i].Password, my_users_old[i].UserID, my_users_old[i].Role);	
-		}
+	public static void changeAccountElement(String newChangeElement, int loggedInUserID, int changeElement) {
+		User[] my_users_old = myUsers; 
+		String[] firstNameArray = new String[100];
+		String[] lastNameArray 	= new String[100];
+		String[] usernameArray 	= new String[100];
+		String[] passwordArray 	= new String[100];
+		int[] 	 userIDArray 	= new int[100];
+		String[] roleArray 		= new String[100];
 		
-	}
+		for(int i = 0; i < NumUser; i++) {
+			if(my_users_old[i].UserID == loggedInUserID) {
+				if(changeElement == 1) {my_users_old[i].FirstName = newChangeElement;}
+				else if(changeElement == 2) {my_users_old[i].LastName = newChangeElement;}
+				else if(changeElement == 3) {my_users_old[i].UserName = newChangeElement;}
+				else if(changeElement == 4) {my_users_old[i].Password = newChangeElement;}
+				
+			}
+			firstNameArray[i] = my_users_old[i].FirstName;
+			lastNameArray [i] = my_users_old[i].LastName;
+			usernameArray [i] = my_users_old[i].UserName;
+			passwordArray [i] = my_users_old[i].Password;
+			userIDArray [i] = my_users_old[i].UserID;
+			roleArray 	[i] = my_users_old[i].Role;	
+			
+
+			Interface.overWriteFile(firstNameArray, lastNameArray, usernameArray, passwordArray, userIDArray, roleArray);
+		}
+			}
 }
