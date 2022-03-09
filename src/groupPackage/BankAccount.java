@@ -6,9 +6,10 @@ import java.util.*;
 
 public class BankAccount {
 	String iban;
-	int bankID;
+	String bankID;
 	double balance;
-	int userID; // User class still needs to be added
+	String userID; // User class still needs to be added
+	static String currUserID;
 
 	static BankAccount[] bankAccounts = new BankAccount[100];
 
@@ -16,12 +17,12 @@ public class BankAccount {
 	static Scanner userInputString = new Scanner(System.in);
 	static Scanner userInputDouble = new Scanner(System.in);
 
-
+	BankAccount currAcc = new BankAccount();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		
+
 		System.out.print("Enter 'L' for login and 'S' for sign-up");
 		String x = userInputString.nextLine();
 
@@ -32,7 +33,10 @@ public class BankAccount {
 			System.out.println("Password");
 			String password = userInputString.nextLine();
 
+			currUserID = Usersmax.checkLogin(username, password);
+			System.out.printf("UserID: %s\n",currUserID);
 			readFile(username, password);
+
 			System.out.print("Enter '1' for Balance overview");
 			String y = userInputString.nextLine();
 			if (y.equals("1")) {
@@ -45,11 +49,13 @@ public class BankAccount {
 
 			System.out.print("Enter new username: ");
 			String username = userInputString.nextLine();
-			
+
 			System.out.print("Enter new password: ");
 			String password = userInputString.nextLine();
 			System.out.print("Confirm password: ");
 			String passwordConfirm = userInputString.nextLine();
+
+			// Keep retrying until password equals confirmPassword
 			while (!password.equals(passwordConfirm)) {
 				System.out.println("Please re-enter password");
 				System.out.print("Enter new password: ");
@@ -64,54 +70,42 @@ public class BankAccount {
 			System.out.printf("New IBAN: %s\n", tempIban); 
 
 			// Create new bankID and UserID, by adding 1 to the latest one. 
-			int tempBankID = returnIndex() + 1;
-			int tempUserID = returnIndex() + 100001;
+			DecimalFormat dfBankID = new DecimalFormat("000000");
+			String tempBankID = dfBankID.format(returnIndex() + 1);
+			
+			DecimalFormat dfUserID = new DecimalFormat("000000");
+			String tempUserID = dfUserID.format(returnIndex() + 100001);
+			
 			double tempBalance = 0;		// Balance (= 0, because new account)
 			writeNewAccount(tempIban, tempBankID, tempBalance, tempUserID);
 			System.out.println("The current balance: 0.00");
 			System.out.println("You can now deposit money");
-			
+
 			BankAccount currAcc = new BankAccount();
 			currAcc.balance = tempBalance;
 			currAcc.bankID = tempBankID;
 			currAcc.iban = tempIban;
 			bankAccounts[0] = currAcc;
-			
-			
-		
+
+
+
 		} else {
 			System.out.println("Key invalid."
 					+ "\n"
 					+ "Restart the program");
 		}
-
-		
-		// Method deposit money //////////////////
-
-
-
-		// For testing (both account 1 and 2)
-		BankAccount currAcc = new BankAccount();
-		currAcc.balance = 10000;
-		currAcc.bankID = 000001;
-		currAcc.iban = "NL01PFMB1234567890";
-		bankAccounts[0] = currAcc;
-
-		BankAccount acc2 = new BankAccount();
-		acc2.balance = 42342;
-		acc2.bankID = 000002;
-		acc2.iban = "NL01PFMB1234999899";
-		bankAccounts[1] = acc2;
 	}
 
-		public static void showOverview() {
+	// Method deposit money //////////////////
+
+	public static void showOverview() {
 		// TODO Auto-generated method stub
 		System.out.println("***************************************");
 		System.out.println("*************** Overview **************");
 		System.out.println("***************************************");
-		System.out.printf("BankID: %06d\n", bankAccounts[1].bankID);
-		System.out.printf("BankID: %s\n", bankAccounts[1].iban);
-		System.out.printf("Bank balance: %.2f\n", bankAccounts[1].balance);
+		System.out.printf("BankID: %s\n", bankAccounts[0].bankID);
+		System.out.printf("BankID: %s\n", bankAccounts[0].iban);
+		System.out.printf("Bank balance: %.2f\n", bankAccounts[0].balance);
 	}
 
 	// Setter and getter methods
@@ -131,22 +125,22 @@ public class BankAccount {
 		this.iban = iban;
 	}
 
-	public int getBankID() {
+	public String getBankID() {
 		return bankID;
 	}
 
-	public void setBankID(int bankID) {
+	public void setBankID(String bankID) {
 		this.bankID = bankID;
 	}
-	
+
 	// Creating new account when user wants to sign-up
-	public static void writeNewAccount(String newIban, int newBankID, double newBalance, int newUserID) {
+	public static void writeNewAccount(String newIban, String newBankID, double newBalance, String newUserID) {
 		// TODO Auto-generated method stub
 		BankAccount[] bankArray1 = new BankAccount[1];
 		String tempIban = newIban;
-		int tempBankID = newBankID;
+		String tempBankID = newBankID;
 		double tempBalance = newBalance;
-		int tempUserID = newUserID;
+		String tempUserID = newUserID;
 
 		bankArray1[0] = new BankAccount(tempIban, tempBankID, tempBalance, tempUserID);
 		writeFile(bankArray1);
@@ -167,9 +161,9 @@ public class BankAccount {
 			System.out.print("Wrong! (writing)"); 
 		} 
 	}
-	
+
 	// Reading from the bankaccounts file
-	public static BankAccount[] readFile(String username, String password){ 
+	public static void readFile(String username, String password){ 
 		BankAccount[] stTemp = new BankAccount[100]; // 100 here is an upper bound 
 		int stIndex = 0; // keeps track of the line number 
 		try{ 
@@ -179,8 +173,8 @@ public class BankAccount {
 
 			while ((sCurrentLine = myFile.readLine()) != null){ 
 				uCurrent = sCurrentLine.split("\t"); 
-				stTemp[stIndex] = new BankAccount(uCurrent[0], Integer.parseInt(uCurrent[1]),
-						Double.parseDouble(uCurrent[2]), Integer.parseInt(uCurrent[3])); 
+				stTemp[stIndex] = new BankAccount(uCurrent[0], uCurrent[1],
+						Double.parseDouble(uCurrent[2]),uCurrent[3]); 
 				stIndex++; 
 			} 
 			myFile.close(); 
@@ -190,7 +184,16 @@ public class BankAccount {
 		} 
 		BankAccount[] baArray = new BankAccount[stIndex]; 
 		System.arraycopy(stTemp, 0, baArray, 0, stIndex); 
-		return baArray; 
+		
+		for(int i = 0; i < baArray.length; i++) {
+			if (baArray[i].userID.equals(currUserID)) {
+				currAcc.balance = baArray[i].balance;
+				currAcc.bankID = baArray[i].bankID;
+				currAcc.iban = baArray[i].iban;
+				currAcc.userID = currUserID;
+				bankAccounts[0] = currAcc;
+			}
+		} 
 
 	}
 
@@ -205,8 +208,8 @@ public class BankAccount {
 
 			while ((sCurrentLine = myFile.readLine()) != null){ 
 				uCurrent = sCurrentLine.split("\t"); 
-				stTemp[stIndex] = new BankAccount(uCurrent[0], Integer.parseInt(uCurrent[1]),
-						Double.parseDouble(uCurrent[2]), Integer.parseInt(uCurrent[3])); 
+				stTemp[stIndex] = new BankAccount(uCurrent[0], uCurrent[1],
+						Double.parseDouble(uCurrent[2]), uCurrent[3]); 
 				stIndex++; 
 			} 
 			myFile.close(); 
@@ -220,9 +223,9 @@ public class BankAccount {
 
 	}
 
-	
-// Constructors
-	public BankAccount(String iban, int bankID, double balance, int userID) {
+
+	// Constructors
+	public BankAccount(String iban, String bankID, double balance, String userID) {
 		this.iban = iban;
 		this.bankID = bankID;
 		this.balance = balance;
