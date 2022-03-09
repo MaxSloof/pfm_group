@@ -194,10 +194,26 @@ public class Interface {
 
 
 			else if(userChoice==2) {
-				System.out.print ("What is the Username of the Client Account you want to edit?: ");									
-				String inputUserName = userInputInt.nextLine();		
+				System.out.print ("What is the UserID of the Client Account you want to edit?: ");									
+				int inputUserID = userInputInt.nextInt();		
 
-				// ???
+				System.out.println("--------------------------------------------------------"); 
+				System.out.println("What Client Account Detail would you like to modify?");
+				System.out.println("(1) Change Client First Name");		
+				System.out.println("(2) Change Client Last Name");		
+				System.out.println("(3) Change Client Username");		
+				System.out.println("(4) Change Client Password"); 		
+				System.out.println("--------------------------------------------------------"); 
+				System.out.print("I want to: ");
+				int userChoice1 = my_scanINT.nextInt();	
+				
+				if(userChoice1 == 1) {System.out.print("Account Holder's new first name: ");}
+				else if(userChoice1 == 2) {System.out.print("Account Holder's new last name: ");}
+				else if(userChoice1 == 3) {System.out.print("Account Holder's new username: ");}
+				else if(userChoice1 == 4) {System.out.print("Account Holder's new password: ");}
+				String input = userInputString.nextLine();
+					User.changeAccountElement(input, inputUserID, userChoice1);
+
 			}
 
 
