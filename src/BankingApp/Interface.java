@@ -153,12 +153,13 @@ public class Interface {
 				else if(userChoice1 == 2) {System.out.print("My new last name: ");}
 				else if(userChoice1 == 3) {System.out.print("My new username: ");}
 				else if(userChoice1 == 4) {System.out.print("My new password: ");}
+				
 				String input = userInputString.nextLine();
 					User.changeAccountElement(input, my_loggedIn_account_holder.UserID, userChoice1);
 
 			}
 
-			else if(userChoice==4){
+			else if(userChoice==7){
 				System.out.println("You are logged out"); break;
 			} 
 

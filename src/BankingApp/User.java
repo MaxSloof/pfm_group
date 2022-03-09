@@ -94,6 +94,7 @@ public class User {
 	
 	public static void changeAccountElement(String newChangeElement, int loggedInUserID, int changeElement) {
 		User[] my_users_old = myUsers; 
+		
 		String[] firstNameArray = new String[100];
 		String[] lastNameArray 	= new String[100];
 		String[] usernameArray 	= new String[100];
@@ -110,11 +111,11 @@ public class User {
 				
 			}
 			firstNameArray[i] = my_users_old[i].FirstName;
-			lastNameArray [i] = my_users_old[i].LastName;
-			usernameArray [i] = my_users_old[i].UserName;
-			passwordArray [i] = my_users_old[i].Password;
-			userIDArray [i] = my_users_old[i].UserID;
-			roleArray 	[i] = my_users_old[i].Role;	
+			lastNameArray[i]  = my_users_old[i].LastName;
+			usernameArray[i]  = my_users_old[i].UserName;
+			passwordArray[i]  = my_users_old[i].Password;
+			userIDArray[i] 	  = my_users_old[i].UserID;
+			roleArray[i] 	  = my_users_old[i].Role;	
 			
 
 			Interface.overWriteFile(firstNameArray, lastNameArray, usernameArray, passwordArray, userIDArray, roleArray);
