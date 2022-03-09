@@ -136,7 +136,6 @@ public class Interface {
 				System.out.println("Your Username is: "+ my_loggedIn_account_holder.GetUserName(true));
 				System.out.println("Your Password is: "+ my_loggedIn_account_holder.GetPassword(true));
 				System.out.println("Your UserID is: "+ my_loggedIn_account_holder.UserID);
-				System.out.println("Your UserID is: ");
 			}
 
 			else if(userChoice==6) {
@@ -154,10 +153,10 @@ public class Interface {
 				if(userChoice1==1){
 					System.out.println("What is the new First Name you would like to use?");
 					String inputFirstName = userInputString.nextLine();
-
+					User.changeFirstName(inputFirstName, my_loggedIn_account_holder.UserID);
 					//???
+					
 				}
-
 				else if(userChoice1==2) {
 					System.out.println("What is the new Last Name you would like to use?");
 					String inputLastName = userInputString.nextLine();

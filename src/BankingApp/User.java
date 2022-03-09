@@ -9,8 +9,18 @@ public class User {
 	public String FirstName, LastName, Role;
 	public int UserID;
 	static int NumUser=0; //To store the number of users
-
+	
+	// Constructor
 	public User(int UserID, String FirstName, String LastName, String Role, String UserName, String Password){
+		this.UserName = UserName;
+		this.Password = Password;
+		this.FirstName = FirstName;
+		this.LastName = LastName;
+		this.UserID = UserID;
+		this.Role = Role;
+	}
+	
+	public User(String FirstName, String LastName, String UserName, String Password, int UserID, String Role){
 		this.UserName = UserName;
 		this.Password = Password;
 		this.FirstName = FirstName;
@@ -51,7 +61,7 @@ public class User {
 				if(LocalRole.equals("AccountHolder")){
 					AccountHolder.Num_account_holders++;
 				}
-				my_users_Local[User.NumUser] = new User(LocalID, LocalFirstName, LocalLastName, LocalRole, LocalUserName, LocalPassword);
+				my_users_Local[User.NumUser] = new User(LocalFirstName, LocalLastName, LocalUserName, LocalPassword, LocalID, LocalRole);
 				User.NumUser++;
 			}
 			my_reader.close();
@@ -80,5 +90,17 @@ public class User {
 	public String GetUserName(boolean LoggedIn){ 
 		if(LoggedIn) return(UserName);
 		else return("Not Logged In");
+	}
+	
+	public static void changeFirstName(String newFirstName, int loggedInUserID) {
+		User[] my_users_old = ReadUserData(); 
+		for(int i = 0; i < NumUser++; i++) {
+			if(my_users_old[i].UserID == loggedInUserID) {
+				my_users_old[i].FirstName = newFirstName;
+			}
+			Interface.overWriteFile(my_users_old[i].FirstName, my_users_old[i].LastName, 
+					my_users_old[i].UserName, my_users_old[i].Password, my_users_old[i].UserID, my_users_old[i].Role);	
+		}
+		
 	}
 }
