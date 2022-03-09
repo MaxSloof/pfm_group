@@ -92,6 +92,22 @@ public class User {
 		else return("Not Logged In");
 	}
 	
+	
+	public static void viewAccount(int clientUserID) { \\Needs some work. Not running okay yet, as it wont print outcome...
+		User[] my_users = myUsers; 
+		
+		for(int i = 0; i < NumUser; i++) {
+			if(my_users[i].UserID == clientUserID) {
+				System.out.print("The client's first name is:" + my_users[i].FirstName);
+				System.out.print("The client's last name is:" + my_users[i].LastName);
+				System.out.print("The client's username is:" + my_users[i].UserName);
+				System.out.print("The client's password is:" + my_users[i].Password);
+				System.out.print("The client's user ID is:" + my_users[i].UserID);
+			}
+		}
+	}
+
+	
 	public static void changeAccountElement(String newChangeElement, int loggedInUserID, int changeElement) {
 		User[] my_users_old = myUsers; 
 		
@@ -123,7 +139,7 @@ public class User {
 	}
 	
 	
-	public static void deleteAccount(int clientUserID) { \\Needs some work. not completely running okay yet
+	public static void deleteAccount(int clientUserID) { \\Needs some work. Not completely running okay yet.
 		User [] my_users_old = myUsers;
 		User [] my_users_new = new User [my_users_old.length - 1];
 
