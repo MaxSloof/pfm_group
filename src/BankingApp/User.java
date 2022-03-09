@@ -93,7 +93,7 @@ public class User {
 	}
 	
 	public static void changeFirstName(String newFirstName, int loggedInUserID) {
-		User[] my_users_old = ReadUserData(); 
+		User[] my_users_old = new ReadUserData(); 
 		for(int i = 0; i < NumUser++; i++) {
 			if(my_users_old[i].UserID == loggedInUserID) {
 				my_users_old[i].FirstName = newFirstName;
