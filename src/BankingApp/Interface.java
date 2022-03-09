@@ -186,7 +186,7 @@ public class Interface {
 			int userChoice = my_scanINT.nextInt();
 
 			if(userChoice==1){						
-				System.out.print ("What is the Username of the Client Account you want to view?: ");									
+				System.out.print ("What is the UserID of the Client Account you want to view?: ");									
 				String inputUserName = userInputInt.nextLine();	
 
 				//???
@@ -218,7 +218,7 @@ public class Interface {
 
 
 			else if(userChoice==3) {
-				System.out.print ("What is the Username of the Client Account you want to remove?: ");									
+				System.out.print ("What is the UserID of the Client Account you want to remove?: ");									
 				int inputUserName = userInputInt.nextInt();		
 
 				//???
