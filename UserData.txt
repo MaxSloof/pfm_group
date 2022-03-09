@@ -1,0 +1,8 @@
+FirstName,LastName,UserName,Password,ID,Role
+Ayman,Abdelwahed,AA100,A12345,1001,BankEmployee
+Yashar,Farrokfal,YF200,Y12345,1002,BankEmployee
+Andrius,Bagdonavicius,AB10,A2345,101,AccountHolder
+Jamila,Posthuma,JP20,J3456,102,AccountHolder
+Max,Sloof,MS30,M4567,103,AccountHolder
+Sai,Rithvik Vijapurapu,SV40,S5678,104,AccountHolder
+Thomas,de Wit,TW50,T6789,105,AccountHolder
