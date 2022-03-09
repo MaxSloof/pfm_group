@@ -17,6 +17,8 @@ public class AccountHolder extends User {
 		// TODO Auto-generated constructor stub
 	}
 	
+	// **********Probably not necessary anymore******************
+	
 	public static AccountHolder[] ReadAccountHolderBalance(User[] my_users_local){ 
 		int LocalID;
 		double LocalBalance;
