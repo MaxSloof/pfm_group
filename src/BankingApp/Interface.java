@@ -100,11 +100,11 @@ public class Interface {
 			System.out.println("--------------------------------------------------------"); 
 			System.out.println("Please select from the menu option below");
 			System.out.println("(1) View my Balance");
-			System.out.println("(2) Deposit to my Account");
-			System.out.println("(3) Withdraw from my Account");
-			System.out.println("(4) Transfer from my Account");
-			System.out.println("(5) View my Account");			//To be added
-			System.out.println("(6) Modify my Account");		//To be added
+			System.out.println("(2) Deposit to my Account");		//To be added
+			System.out.println("(3) Withdraw from my Account");		//To be added
+			System.out.println("(4) Transfer from my Account");		//To be added
+			System.out.println("(5) View my Account");			
+			System.out.println("(6) Modify my Account");		
 			System.out.println("(7) Logout"); 
 			System.out.println("--------------------------------------------------------"); 
 			System.out.print("I want to: ");
@@ -178,8 +178,8 @@ public class Interface {
 			System.out.println("--------------------------------------------------------"); 
 			System.out.println("Please select from the menu option below"); 
 			System.out.println("(1) View Client Account Details"); 		//To be added
-			System.out.println("(2) Modify Client Account Details");	//To be added
-			System.out.println("(3) Delete Client Account");			//To be added
+			System.out.println("(2) Modify Client Account Details");	
+			System.out.println("(3) Delete Client Account");		//To be added
 			System.out.println("(4) Logout"); 
 			System.out.println("--------------------------------------------------------");
 			System.out.print("I want to: ");
