@@ -315,10 +315,8 @@ public class Interface {
 		int stIndex = 0; // keeps track of the line number 
 		try{ 
 			BufferedReader myFile = new BufferedReader (new FileReader("UserData.txt")); 
-			String sCurrentLine; 
 
-
-			while ((sCurrentLine = myFile.readLine()) != null){ 
+			while ((myFile.readLine()) != null){ 
 				stIndex++; 
 			} 
 			myFile.close(); 
