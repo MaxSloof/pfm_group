@@ -120,5 +120,34 @@ public class User {
 
 			Interface.overWriteFile(firstNameArray, lastNameArray, usernameArray, passwordArray, userIDArray, roleArray);
 		}
+	}
+	
+	
+	public static void deleteAccount(int clientUserID) { \\Needs some work. not completely running okay yet
+		User [] my_users_old = myUsers;
+		User [] my_users_new = new User [my_users_old.length - 1];
+
+		String[] firstNameArray = new String[100];
+		String[] lastNameArray 	= new String[100];
+		String[] usernameArray 	= new String[100];
+		String[] passwordArray 	= new String[100];
+		int[] 	 userIDArray 	= new int[100];
+		String[] roleArray 		= new String[100];
+		
+		for(int i = 0, j = 0; i < NumUser; i++) {
+			if(clientUserID != my_users_old[i].UserID) {
+				my_users_new [j] = my_users_old [i];
 			}
+
+		firstNameArray[i] = my_users_new[j].FirstName;
+		lastNameArray [i] = my_users_new[j].LastName;
+		usernameArray [i] = my_users_new[j].UserName;
+		passwordArray [i] = my_users_new[j].Password;
+		userIDArray [i] = my_users_new[j].UserID;
+		roleArray [i] = my_users_new[j].Role;	
+			
+		Interface.overWriteFile(firstNameArray, lastNameArray, usernameArray, passwordArray, userIDArray, roleArray);
+		}
+	}	
+
 }
