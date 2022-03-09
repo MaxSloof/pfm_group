@@ -100,26 +100,46 @@ public class Interface {
 			System.out.println("--------------------------------------------------------"); 
 			System.out.println("Please select from the menu option below");
 			System.out.println("(1) View my Balance");
-			System.out.println("(2) View my Account");			//To be added
-			System.out.println("(3) Modify my Account");		//To be added
-			System.out.println("(4) Logout"); 
+			System.out.println("(2) Deposit to my Account");
+			System.out.println("(3) Withdraw from my Account");
+			System.out.println("(4) Transfer from my Account");
+			System.out.println("(5) View my Account");			//To be added
+			System.out.println("(6) Modify my Account");		//To be added
+			System.out.println("(7) Logout"); 
 			System.out.println("--------------------------------------------------------"); 
 			System.out.print("I want to: ");
 			int userChoice = my_scanINT.nextInt();
 
+			// Retrieve balance from BankAccount class
 			if(userChoice==1){
-				System.out.println("Your balance is: "+ my_loggedIn_account_holder.Balance);
+				BankAccount.returnBalance(my_loggedIn_account_holder.UserID);
 			}
 
+			// Sai can add his methods
 			else if(userChoice==2) {
+
+			}
+
+			// Sai can add his methods
+			else if(userChoice==3) {
+
+			}
+			// Sai can add his methods
+			else if(userChoice==4) {
+
+			}
+
+
+			else if(userChoice==5) {
 				System.out.println("Your First Name is: "+ my_loggedIn_account_holder.FirstName);
 				System.out.println("Your Last Name is: "+ my_loggedIn_account_holder.LastName);
 				System.out.println("Your Username is: "+ my_loggedIn_account_holder.GetUserName(true));
 				System.out.println("Your Password is: "+ my_loggedIn_account_holder.GetPassword(true));
 				System.out.println("Your UserID is: "+ my_loggedIn_account_holder.UserID);
+				System.out.println("Your UserID is: ");
 			}
 
-			else if(userChoice==3) {
+			else if(userChoice==6) {
 				System.out.println("--------------------------------------------------------"); 
 				System.out.println("What Account Detail would you like to modify?");
 				System.out.println("(1) Change my First Name");		//To be added
@@ -237,6 +257,7 @@ public class Interface {
 		System.out.print("Please confirm your password: ");
 		TempNewUserPasswordConfirm = my_scan.nextLine(); 
 
+		// If the two passwords do not match, retry
 		while (!TempNewUserPassword.equals(TempNewUserPasswordConfirm)) {
 			System.out.println("Please re-enter password");
 			System.out.print("Enter new password: ");
@@ -244,11 +265,11 @@ public class Interface {
 			System.out.print("Confirm password: ");
 			TempNewUserPasswordConfirm = userInputString.nextLine();
 		}
-		
+
 		// Create new UserID
 		TempNewUserID = returnIndex()+100;
 		AccountType = "AccountHolder";
-		
+
 		AccountHolderArray[AccountHolder.Num_account_holders] = new AccountHolder(TempNewUserID, TempFirstName, TempLastName, AccountType, TempNewUserName, TempNewUserPassword);
 		appendFile(TempFirstName, TempLastName, TempNewUserName, TempNewUserPassword, TempNewUserID, AccountType);
 		BankAccount.writeNewAccount(TempNewUserID);
@@ -295,7 +316,7 @@ public class Interface {
 		try{ 
 			BufferedReader myFile = new BufferedReader (new FileReader("UserData.txt")); 
 			String sCurrentLine; 
-			
+
 
 			while ((sCurrentLine = myFile.readLine()) != null){ 
 				stIndex++; 

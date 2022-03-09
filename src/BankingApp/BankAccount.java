@@ -10,91 +10,13 @@ public class BankAccount {
 	double balance;
 	int userID; // User class still needs to be added
 	static String currUserID;
+	static int numBA = 0; // Keeps track of number of bank accounts
 
 	static BankAccount[] bankAccounts = new BankAccount[100];
 
 	static Scanner userInputInt = new Scanner(System.in);
 	static Scanner userInputString = new Scanner(System.in);
 	static Scanner userInputDouble = new Scanner(System.in);
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-
-		System.out.print("Enter 'L' for login and 'S' for sign-up");
-		String x = userInputString.nextLine();
-
-		// Login or Sign up
-		if (x.equals("L") || x.equals("l")) { // User wants to login
-			System.out.println("Username");
-			String username = userInputString.nextLine();
-			System.out.println("Password");
-			String password = userInputString.nextLine();
-
-			currUserID = Usersmax.checkLogin(username, password);
-			System.out.printf("UserID: %s\n",currUserID);
-			readFile(username, password);
-
-			System.out.print("Enter '1' for Balance overview");
-			String y = userInputString.nextLine();
-			if (y.equals("1")) {
-				showOverview();
-			}
-			// Should go through the txt file and find the correct lines. 
-			//findBankAccount();
-
-		} if (x.equals("S") || x.equals("s")) { // User wants to create new bank account 
-
-			System.out.print("Enter new username: ");
-			String username = userInputString.nextLine();
-
-			System.out.print("Enter new password: ");
-			String password = userInputString.nextLine();
-			System.out.print("Confirm password: ");
-			String passwordConfirm = userInputString.nextLine();
-
-			// Keep retrying until password equals confirmPassword
-			while (!password.equals(passwordConfirm)) {
-				System.out.println("Please re-enter password");
-				System.out.print("Enter new password: ");
-				password = userInputString.nextLine();
-				System.out.print("Confirm password: ");
-				passwordConfirm = userInputString.nextLine();
-			}
-
-			//Create new IBAN 
-			DecimalFormat dfIban = new DecimalFormat("0000000000");
-			String tempIban = "NL01PFMB" + dfIban.format(returnIndex() + 1);
-			System.out.printf("New IBAN: %s\n", tempIban); 
-
-			// Create new bankID and UserID, by adding 1 to the latest one. 
-			DecimalFormat dfBankID = new DecimalFormat("000000");
-			String tempBankID = dfBankID.format(returnIndex() + 1);
-
-			DecimalFormat dfUserID = new DecimalFormat("000000");
-			String tempUserID = dfUserID.format(returnIndex() + 100001);
-
-			double tempBalance = 0;		// Balance (= 0, because new account)
-			writeNewAccount(tempIban, tempBankID, tempBalance, tempUserID);
-			System.out.println("The current balance: 0.00");
-			System.out.println("You can now deposit money");
-
-			BankAccount currAcc = new BankAccount();
-			currAcc.balance = tempBalance;
-			currAcc.bankID = tempBankID;
-			currAcc.iban = tempIban;
-			bankAccounts[0] = currAcc;
-
-
-
-		} else {
-			System.out.println("Key invalid."
-					+ "\n"
-					+ "Restart the program");
-		}
-	}
-
-	// Method deposit money //////////////////
 
 	public static void showOverview() {
 		// TODO Auto-generated method stub
@@ -158,7 +80,7 @@ public class BankAccount {
 		try{ 
 			PrintWriter myFile = new PrintWriter ( 
 					new BufferedWriter ( new FileWriter ("bankaccounts.txt", true))); 
-			myFile.printf("\n%s\t%06d\t%f\t%06d",bankArray1[0].iban, bankArray1[0].bankID,
+			myFile.printf("%s,%d,%f,%d",bankArray1[0].iban, bankArray1[0].bankID,
 					bankArray1[0].balance, bankArray1[0].userID); 
 
 
@@ -169,39 +91,48 @@ public class BankAccount {
 	}
 
 	// Reading from the bankaccounts file
-	public static void readFile(String username, String password){ 
-		BankAccount[] stTemp = new BankAccount[100]; // 100 here is an upper bound 
-		int stIndex = 0; // keeps track of the line number 
+	public static void returnBalance(int loggedInUserID){ 
+		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
+		String localIban, loggedInIban = "";
+		int localBankID, localUserID;
+		double localBalance, loggedInBalance = 0;
+		String[] current_line = new String[3]; 
+
 		try{ 
 			BufferedReader myFile = new BufferedReader (new FileReader("bankaccounts.txt")); 
-			String sCurrentLine; 
-			String[] uCurrent = new String[4]; 
+			String input_line; 
 
-			while ((sCurrentLine = myFile.readLine()) != null){ 
-				uCurrent = sCurrentLine.split("\t"); 
-				stTemp[stIndex] = new BankAccount(uCurrent[0], uCurrent[1],
-						Double.parseDouble(uCurrent[2]),uCurrent[3]); 
-				stIndex++; 
+			while ((input_line = myFile.readLine()) != null){ 
+				current_line = input_line.split(","); 
+
+				localIban = current_line[0];
+				localBankID = Integer.parseInt(current_line[1]);
+				localBalance = Double.parseDouble(current_line[2]);
+				localUserID = Integer.parseInt(current_line[3]);
+
+				my_ba_local[BankAccount.numBA] = new BankAccount(localIban, localBankID, localBalance, localUserID);
+				BankAccount.numBA++;
 			} 
+
+			for(int i = 0; i < BankAccount.numBA; i++) {
+				if(my_ba_local[i].userID == loggedInUserID){
+					loggedInBalance = my_ba_local[i].balance;
+					loggedInIban = my_ba_local[i].iban;
+				}
+			}
 			myFile.close(); 
 
 		} catch(IOException e){ 
 			System.out.print("Wrong! (Reading)"); 
 		} 
-		BankAccount[] baArray = new BankAccount[stIndex]; 
-		System.arraycopy(stTemp, 0, baArray, 0, stIndex); 
 
-		for(int i = 0; i < baArray.length; i++) {
-			if (baArray[i].userID.equals(currUserID)) {
-				bankAccounts[0].balance = baArray[i].balance;
-				bankAccounts[0].bankID = baArray[i].bankID;
-				bankAccounts[0].iban = baArray[i].iban;
-				bankAccounts[0].userID = currUserID;
-			}
-		} 
-
+		System.out.println("\n***************************************");
+		System.out.println("*************** Overview **************");
+		System.out.println("***************************************");
+		System.out.printf("IBAN: %s\n", loggedInIban);
+		System.out.printf("Bank balance: €%.2f\n\n", loggedInBalance);
 	}
-
+	
 	// Returning the index of the latest line, so that I can create a new file
 	public static int returnIndex(){ 
 		BankAccount[] stTemp = new BankAccount[100]; // 100 here is an upper bound 
@@ -211,7 +142,6 @@ public class BankAccount {
 			String sCurrentLine; 
 
 			while ((sCurrentLine = myFile.readLine()) != null){ 
-				
 				stIndex++; 
 			} 
 			myFile.close(); 
