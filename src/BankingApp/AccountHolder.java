@@ -19,29 +19,30 @@ public class AccountHolder extends User {
 	
 	// **********Probably not necessary anymore******************
 	
-	public static AccountHolder[] ReadAccountHolderBalance(User[] my_users_local){ 
+	public static AccountHolder[] accountHolderIDArray(User[] my_users_local){ 
+		String LocalFirstName, LocalLastName, LocalUserName, LocalPassword, LocalRole; 
 		int LocalID;
-		double LocalBalance;
-		AccountHolder[] my_account_holders_local = new AccountHolder[20]; //let the maximum number =20 
-		String[] current_line = new String[2];
+		AccountHolder[] my_account_holders_local = new AccountHolder[NumUser]; //let the maximum number be number of accountholders 
+		String[] current_line = new String[5];
 		int count = 0;
 		try{
-			BufferedReader my_reader = new BufferedReader(new FileReader("AccountHolderBalance.txt")); //declaring the reader object
+			BufferedReader my_reader = new BufferedReader(new FileReader("UserData.txt")); //declaring the reader object
 			String input_line; //variable to read line by line
 			while( (input_line=my_reader.readLine()) != null){
-				current_line = input_line.split(","); //split the line at the tab 
-				//current_line is an array:
-				//order in the database: FirstName, LastName, UserName, Password, ID, Role 
-				LocalID = Integer.parseInt(current_line[0]);
-				LocalBalance = Double.parseDouble(current_line[1]);
+				current_line = input_line.split(","); //split the line at the tab
+				//Current_line is an array:
+				//Order in the database: FirstName, LastName, UserName, Password, ID, Role 
+				LocalFirstName = current_line[0];
+				LocalLastName = current_line[1];
+				LocalUserName = current_line[2];
+				LocalPassword = current_line[3];
+				LocalID = Integer.parseInt(current_line[4]);
+				LocalRole = current_line[5];
 
 				for(int i=0; i<User.NumUser;i++){ 
-					if(my_users_local[i].UserID == LocalID){
-						String username_local = my_users_local[i].GetUserName(true); 
-						String password_local = my_users_local[i].GetPassword(true);
+					if(LocalRole.equals("AccountHolder")) {
 						my_account_holders_local[count] = new 
-								AccountHolder(my_users_local[i].UserID,my_users_local[i].FirstName, my_users_local[i].LastName, my_users_local[i].Role, username_local, password_local); 
-						my_account_holders_local[count].Balance = LocalBalance;
+						AccountHolder(LocalID, LocalFirstName, LocalLastName, LocalRole, LocalUserName, LocalPassword); 
 						count++;
 						break;
 					}

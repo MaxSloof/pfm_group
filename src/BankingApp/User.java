@@ -35,8 +35,13 @@ public class User {
 		String LocalFirstName, LocalLastName, LocalUserName, LocalPassword, LocalRole; 
 		int LocalID;
 		
-		User[] my_users_Local = new User[20];
+		User[] my_users_Local = new User[100];
 		String[] current_line = new String[5];
+
+		// Set values to zero, because it would continue counting after previous login failed
+		NumUser = 0;
+		BankEmployee.Num_bank_employees = 0;
+		AccountHolder.Num_account_holders = 0;
 
 		try{
 			BufferedReader my_reader = new BufferedReader(new FileReader("UserData.txt")); //declaring the reader object
@@ -103,13 +108,14 @@ public class User {
 				System.out.println("The client's username is:" + my_users[i].UserName);
 				System.out.println("The client's password is:" + my_users[i].Password);
 				System.out.println("The client's user ID is:" + my_users[i].UserID);
+				System.out.println("The client's balance is:" + BankAccount.returnBalance(clientUserID));
 			}
 		}
 	}
 
 	
 	public static void changeAccountElement(String newChangeElement, int loggedInUserID, int changeElement) {
-		User[] my_users_old = myUsers; 
+		User[] my_users_local = myUsers; 
 		
 		String[] firstNameArray = new String[100];
 		String[] lastNameArray 	= new String[100];
@@ -119,19 +125,19 @@ public class User {
 		String[] roleArray 		= new String[100];
 		
 		for(int i = 0; i < NumUser; i++) {
-			if(my_users_old[i].UserID == loggedInUserID) {
-				if(changeElement == 1) {my_users_old[i].FirstName = newChangeElement;}
-				else if(changeElement == 2) {my_users_old[i].LastName = newChangeElement;}
-				else if(changeElement == 3) {my_users_old[i].UserName = newChangeElement;}
-				else if(changeElement == 4) {my_users_old[i].Password = newChangeElement;}
+			if(my_users_local[i].UserID == loggedInUserID) {
+				if(changeElement == 1) {my_users_local[i].FirstName = newChangeElement;}
+				else if(changeElement == 2) {my_users_local[i].LastName = newChangeElement;}
+				else if(changeElement == 3) {my_users_local[i].UserName = newChangeElement;}
+				else if(changeElement == 4) {my_users_local[i].Password = newChangeElement;}
 				
 			}
-			firstNameArray[i] = my_users_old[i].FirstName;
-			lastNameArray[i]  = my_users_old[i].LastName;
-			usernameArray[i]  = my_users_old[i].UserName;
-			passwordArray[i]  = my_users_old[i].Password;
-			userIDArray[i] 	  = my_users_old[i].UserID;
-			roleArray[i] 	  = my_users_old[i].Role;	
+			firstNameArray[i] = my_users_local[i].FirstName;
+			lastNameArray[i]  = my_users_local[i].LastName;
+			usernameArray[i]  = my_users_local[i].UserName;
+			passwordArray[i]  = my_users_local[i].Password;
+			userIDArray[i] 	  = my_users_local[i].UserID;
+			roleArray[i] 	  = my_users_local[i].Role;	
 			
 
 			Interface.overWriteFile(firstNameArray, lastNameArray, usernameArray, passwordArray, userIDArray, roleArray);
