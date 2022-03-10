@@ -177,9 +177,9 @@ public class Interface {
 		while(true){
 			System.out.println("--------------------------------------------------------"); 
 			System.out.println("Please select from the menu option below"); 
-			System.out.println("(1) View Client Account Details"); 		//Added, but not working properly yet
+			System.out.println("(1) View Client Account Details"); 		
 			System.out.println("(2) Modify Client Account Details");	
-			System.out.println("(3) Delete Client Account");		//Added, but not completely working properly yet
+			System.out.println("(3) Delete Client Account");		
 			System.out.println("(4) Logout"); 
 			System.out.println("--------------------------------------------------------");
 			System.out.print("I want to: ");
@@ -187,7 +187,7 @@ public class Interface {
 
 			if(userChoice==1){						
 				System.out.print ("What is the UserID of the Client Account you want to view?: ");									
-				String inputUserName = userInputInt.nextLine();	
+				int inputUserID = userInputInt.nextInt();	
 
 				User.viewAccount(inputUserID);
 			}	
@@ -288,19 +288,7 @@ public class Interface {
 	String[] TempNewUserPassword, int[] TempNewUserID, String[] AccountType){
 		// TODO
 
-		try{
-			PrintWriter wr = new PrintWriter(
-					new BufferedWriter (new FileWriter ("UserData.txt", false)));			
-
-			for (int i = 0; i < User.NumUser; i++){
-				wr.println(TempFirstName[i] + "," + TempLastName[i] + "," + TempNewUserName[i] + "," + TempNewUserPassword[i] +
-				 "," + TempNewUserID[i] + "," + AccountType[i]);
-			}
-			wr.close();																								
-		} 
-		catch (IOException e){																						
-			System.out.print ("There is an I/O error when writing.");												
-		}
+		
 	}	
 
 	public static int returnIndex(){ 

@@ -93,16 +93,16 @@ public class User {
 	}
 	
 	
-	public static void viewAccount(int clientUserID) { \\Needs some work. Not running okay yet, as it wont print outcome...
+	public static void viewAccount(int clientUserID) { 
 		User[] my_users = myUsers; 
 		
 		for(int i = 0; i < NumUser; i++) {
 			if(my_users[i].UserID == clientUserID) {
-				System.out.print("The client's first name is:" + my_users[i].FirstName);
-				System.out.print("The client's last name is:" + my_users[i].LastName);
-				System.out.print("The client's username is:" + my_users[i].UserName);
-				System.out.print("The client's password is:" + my_users[i].Password);
-				System.out.print("The client's user ID is:" + my_users[i].UserID);
+				System.out.println("The client's first name is:" + my_users[i].FirstName);
+				System.out.println("The client's last name is:" + my_users[i].LastName);
+				System.out.println("The client's username is:" + my_users[i].UserName);
+				System.out.println("The client's password is:" + my_users[i].Password);
+				System.out.println("The client's user ID is:" + my_users[i].UserID);
 			}
 		}
 	}
@@ -139,9 +139,9 @@ public class User {
 	}
 	
 	
-	public static void deleteAccount(int clientUserID) { \\Needs some work. Not completely running okay yet.
+	public static void deleteAccount(int clientUserID) { //Needs some work. Not completely running okay yet.
 		User [] my_users_old = myUsers;
-		User [] my_users_new = new User [my_users_old.length - 1];
+		User [] my_users_new = new User [NumUser - 1];
 
 		String[] firstNameArray = new String[100];
 		String[] lastNameArray 	= new String[100];
@@ -161,9 +161,23 @@ public class User {
 		passwordArray [i] = my_users_new[j].Password;
 		userIDArray [i] = my_users_new[j].UserID;
 		roleArray [i] = my_users_new[j].Role;	
-			
-		Interface.overWriteFile(firstNameArray, lastNameArray, usernameArray, passwordArray, userIDArray, roleArray);
 		}
+		try{
+			PrintWriter wr = new PrintWriter(
+					new BufferedWriter (new FileWriter ("UserData.txt", false)));			
+
+		// Replace existing file with one fewer line
+		for (int k = 0; k < User.NumUser-1; k++){
+				wr.println(firstNameArray[k] + "," + lastNameArray[k] + "," + usernameArray[k] + "," + passwordArray[k] +
+				 "," + userIDArray[k] + "," + roleArray[k]);
+		}
+		wr.close();																								
+		}
+		catch (IOException e){																						
+			System.out.print ("There is an I/O error when writing.");												
+		}
+		// Print completion message
+		System.out.println("User with UserID " + clientUserID + " has succesfully been deleted");
 	}	
 
 }
