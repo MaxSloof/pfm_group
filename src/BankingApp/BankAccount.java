@@ -111,7 +111,8 @@ public class BankAccount {
 				localBalance = Double.parseDouble(current_line[2]);
 				localUserID = Integer.parseInt(current_line[3]);
 
-				my_ba_local[BankAccount.numBA] = new BankAccount(localIban, localBankID, localBalance, localUserID);
+				my_ba_local[BankAccount.numBA] = new BankAccount(localIban, localBankID, 
+				localBalance, localUserID);
 				BankAccount.numBA++;
 			} 
 
@@ -149,7 +150,8 @@ public class BankAccount {
 				localBalance = Double.parseDouble(current_line[2]);
 				localUserID = Integer.parseInt(current_line[3]);
 
-				my_ba_local[BankAccount.numBA] = new BankAccount(localIban, localBankID, localBalance, localUserID);
+				my_ba_local[BankAccount.numBA] = new BankAccount(localIban, 
+				localBankID, localBalance, localUserID);
 				BankAccount.numBA++;
 			} 
 
