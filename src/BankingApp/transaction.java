@@ -1,4 +1,4 @@
-package bankingApp;
+package BankingApp;
 
 import java.io.*;
 import java.text.DecimalFormat;
@@ -14,7 +14,7 @@ public class transaction {
 	String fromIban;
 	String toIban;
 	String date;
-	int userId; //onceadded to userclass
+	
 	double amount;
 	
 	static transaction[] transactions = new transaction[100];
@@ -46,7 +46,7 @@ public class transaction {
 				System.out.print("Wrong! (writing)"); 
 			} 
 		}
-	  //consstructors 
+	  // Constructors 
 		public transaction(String date, String fromIban, String toIban, double amount) {
 			this.date = date;
 			this.fromIban = fromIban;
