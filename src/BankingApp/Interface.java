@@ -13,8 +13,8 @@ public class Interface {
 
 	static Scanner my_scan = new Scanner(System.in); //declaring scanner object to scan input from the user
 	static Scanner my_scanINT = new Scanner(System.in); //declaring scanner object to scan input from the user
-	static AccountHolder[] AccountHolderArray = new AccountHolder[20]; //let the maximum number = 20 
-	static BankEmployee[] BankEmployeeArray = new BankEmployee[20]; //let the maximum number = 20 
+	static AccountHolder[] AccountHolderArray = new AccountHolder[100]; //let the maximum number = 20 
+	static BankEmployee[] BankEmployeeArray = new BankEmployee[100]; //let the maximum number = 20 
 	static String[] current_line = new String[5];
 
 	static String TempFirstName, TempLastName, TempNewUserName, TempNewUserPassword, TempNewUserPasswordConfirm, AccountType;
@@ -23,13 +23,6 @@ public class Interface {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		User[] my_users = User.ReadUserData();
-		AccountHolder[] my_account_holders = AccountHolder.ReadAccountHolderBalance(my_users); //returns array of account holders together with balances
-		BankEmployee[] my_bank_employees = BankEmployee.FilterBankEmployees(my_users);
-
-
-		int LoggedInID=0, LoggedInIndex=1000; //ID is the parameter of the object, index is its location in the users array
-
 
 		while(true){
 			//second: login
@@ -48,7 +41,14 @@ public class Interface {
 
 			if(userChoice==0) SignUp();
 
-			else if(userChoice==1){
+			
+			
+			if(userChoice==1){
+				User[] my_users = User.ReadUserData();
+				AccountHolder[] my_account_holders = AccountHolder.accountHolderIDArray(my_users); //returns array of account holders together with balances
+				BankEmployee[] my_bank_employees = BankEmployee.FilterBankEmployees(my_users);
+		
+				int LoggedInID=0, LoggedInIndex=1000; //ID is the parameter of the object, index is its location in the users array
 				System.out.print("Username: ");
 				String InputUserName = my_scan.nextLine(); 
 				System.out.print("Password: ");
@@ -79,8 +79,8 @@ public class Interface {
 
 				if(LoggedInID==0) System.out.println("Login Failed!"); //Finished the for loop without finding the user either in bank employee or account holder DB:
 
-				else if(BankEmployeeLoggedIn) BankEmployeeIntefrace(my_bank_employees[LoggedInIndex],my_account_holders); 
-				else if(AccountHolderLoggedIn) AccountHolderIntefrace(my_account_holders[LoggedInIndex]);
+				else if(BankEmployeeLoggedIn) BankEmployeeInterface(my_bank_employees[LoggedInIndex],my_account_holders); 
+				else if(AccountHolderLoggedIn) AccountHolderInterface(my_account_holders[LoggedInIndex]);
 			}
 
 			else if (userChoice==2){
@@ -92,7 +92,7 @@ public class Interface {
 		} 
 	}
 
-	public static void AccountHolderIntefrace(AccountHolder my_loggedIn_account_holder){ 
+	public static void AccountHolderInterface(AccountHolder my_loggedIn_account_holder){ 
 
 		System.out.println("You are now accessing the Account Holder's interface");
 
@@ -112,7 +112,12 @@ public class Interface {
 
 			// Retrieve balance from BankAccount class
 			if(userChoice==1){
-				BankAccount.returnBalance(my_loggedIn_account_holder.UserID);
+				System.out.println("\n***************************************");
+				System.out.println("*************** Overview **************");
+				System.out.println("***************************************");
+				System.out.printf("IBAN: %s\n", BankAccount.returnIban(my_loggedIn_account_holder.UserID));
+				System.out.printf("Bank balance: %.2f\n\n", BankAccount.returnBalance(my_loggedIn_account_holder.UserID));
+				;
 			}
 
 			// Sai can add his methods
@@ -170,7 +175,7 @@ public class Interface {
 
 
 
-	public static void BankEmployeeIntefrace(BankEmployee my_loggedIn_bank_employee, AccountHolder[] my_account_holders_local){ 
+	public static void BankEmployeeInterface(BankEmployee my_loggedIn_bank_employee, AccountHolder[] my_account_holders_local){ 
 
 		System.out.println("You are now accessing the Bank Employee's interface");
 
@@ -264,6 +269,7 @@ public class Interface {
 		AccountHolderArray[AccountHolder.Num_account_holders] = new AccountHolder(TempNewUserID, TempFirstName, TempLastName, AccountType, TempNewUserName, TempNewUserPassword);
 		appendFile(TempFirstName, TempLastName, TempNewUserName, TempNewUserPassword, TempNewUserID, AccountType);
 		BankAccount.writeNewAccount(TempNewUserID);
+		
 	}
 
 
@@ -287,7 +293,18 @@ public class Interface {
 	public static void overWriteFile(String[] TempFirstName, String[] TempLastName, String[] TempNewUserName, 
 	String[] TempNewUserPassword, int[] TempNewUserID, String[] AccountType){
 		// TODO
-
+		try{
+			PrintWriter wr = new PrintWriter(
+					new BufferedWriter (new FileWriter ("UserData.txt", false)));			
+			for (int i = 0; i < User.NumUser; i++){
+				wr.println(TempFirstName[i] + "," + TempLastName[i] + "," + TempNewUserName[i] + "," + TempNewUserPassword[i] +
+				 "," + TempNewUserID[i] + "," + AccountType[i]);
+			}
+			wr.close();																								
+		} 
+		catch (IOException e){																						
+			System.out.print ("There is an I/O error when writing.");												
+		}
 		
 	}	
 

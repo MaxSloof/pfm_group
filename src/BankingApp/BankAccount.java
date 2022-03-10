@@ -64,8 +64,9 @@ public class BankAccount {
 		// Create new IBAN
 		DecimalFormat dfIban = new DecimalFormat("0000000000");
 		newIban = "NL01PFMB" + dfIban.format(returnIndex() + 1);
-		System.out.printf("Your new IBAN: %s\n", newIban); 
+		System.out.printf("\nYour new IBAN: %s\n", newIban); 
 		System.out.println("Account creation succesfull");
+		System.out.println("\n--------------------------------------------------------");
 
 		// Create new bankID 
 		newBankID = returnIndex() + 1;
@@ -80,7 +81,7 @@ public class BankAccount {
 		try{ 
 			PrintWriter myFile = new PrintWriter ( 
 					new BufferedWriter ( new FileWriter ("bankaccounts.txt", true))); 
-			myFile.printf("%s,%d,%f,%d",bankArray1[0].iban, bankArray1[0].bankID,
+			myFile.printf("%s,%d,%f,%d\n",bankArray1[0].iban, bankArray1[0].bankID,
 					bankArray1[0].balance, bankArray1[0].userID); 
 
 
@@ -91,13 +92,13 @@ public class BankAccount {
 	}
 
 	// Reading from the bankaccounts file
-	public static void returnBalance(int loggedInUserID){ 
+	public static double returnBalance(int loggedInUserID){ 
 		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
-		String localIban, loggedInIban = "";
+		String localIban;
 		int localBankID, localUserID;
 		double localBalance, loggedInBalance = 0;
 		String[] current_line = new String[3]; 
-
+		numBA = 0;
 		try{ 
 			BufferedReader myFile = new BufferedReader (new FileReader("bankaccounts.txt")); 
 			String input_line; 
@@ -117,6 +118,43 @@ public class BankAccount {
 			for(int i = 0; i < BankAccount.numBA; i++) {
 				if(my_ba_local[i].userID == loggedInUserID){
 					loggedInBalance = my_ba_local[i].balance;
+				}
+			}
+			myFile.close(); 
+
+		} catch(IOException e){ 
+			System.out.print("Wrong! (Reading)"); 
+		} 
+
+		return(loggedInBalance);
+		
+	}
+
+	public static String returnIban(int loggedInUserID){ 
+		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
+		String localIban, loggedInIban = "";
+		int localBankID, localUserID;
+		double localBalance;
+		String[] current_line = new String[3]; 
+		numBA = 0;
+		try{ 
+			BufferedReader myFile = new BufferedReader (new FileReader("bankaccounts.txt")); 
+			String input_line; 
+
+			while ((input_line = myFile.readLine()) != null){ 
+				current_line = input_line.split(","); 
+
+				localIban = current_line[0];
+				localBankID = Integer.parseInt(current_line[1]);
+				localBalance = Double.parseDouble(current_line[2]);
+				localUserID = Integer.parseInt(current_line[3]);
+
+				my_ba_local[BankAccount.numBA] = new BankAccount(localIban, localBankID, localBalance, localUserID);
+				BankAccount.numBA++;
+			} 
+
+			for(int i = 0; i < BankAccount.numBA; i++) {
+				if(my_ba_local[i].userID == loggedInUserID){
 					loggedInIban = my_ba_local[i].iban;
 				}
 			}
@@ -126,13 +164,9 @@ public class BankAccount {
 			System.out.print("Wrong! (Reading)"); 
 		} 
 
-		System.out.println("\n***************************************");
-		System.out.println("*************** Overview **************");
-		System.out.println("***************************************");
-		System.out.printf("IBAN: %s\n", loggedInIban);
-		System.out.printf("Bank balance: €%.2f\n\n", loggedInBalance);
+		return(loggedInIban);
+		
 	}
-	
 	// Returning the index of the latest line, so that I can create a new file
 	public static int returnIndex(){ 
 		BankAccount[] stTemp = new BankAccount[100]; // 100 here is an upper bound 
