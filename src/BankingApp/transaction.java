@@ -64,7 +64,7 @@ public class transaction {
 		 try{ 
 				PrintWriter myFile = new PrintWriter ( 
 						new BufferedWriter ( new FileWriter ("/Users/sairithvik/eclipse-workspace/pfmgroupprj/transactions.txt", true))); 
-				myFile.printf("%s,%s,%s,%f",transactions1[0].date, transactions1[0].fromIban,
+				myFile.printf("%s,%s,%s,%f %n",transactions1[0].date, transactions1[0].fromIban,
 						transactions1[0].toIban, transactions1[0].amount); 
 
 
