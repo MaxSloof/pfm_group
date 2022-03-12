@@ -122,12 +122,14 @@ public class Interface {
 
 			// Sai can add his methods
 			else if(userChoice==2) {
-
+				String loggedInIban = BankAccount.returnIban(my_loggedIn_account_holder.UserID);
+				Transaction.depositFunds(my_loggedIn_account_holder.UserID, loggedInIban);
 			}
 
 			// Sai can add his methods
 			else if(userChoice==3) {
-
+				String loggedInIban = BankAccount.returnIban(my_loggedIn_account_holder.UserID);
+				Transaction.withdrawFunds(my_loggedIn_account_holder.UserID, loggedInIban);
 			}
 			// Sai can add his methods
 			else if(userChoice==4) {

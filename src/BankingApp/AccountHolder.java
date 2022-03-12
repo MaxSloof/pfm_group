@@ -26,7 +26,7 @@ public class AccountHolder extends User {
 		String[] current_line = new String[5];
 		int count = 0;
 		try{
-			BufferedReader my_reader = new BufferedReader(new FileReader("UserData.txt")); //declaring the reader object
+			BufferedReader my_reader = new BufferedReader(new FileReader("userdata.txt")); //declaring the reader object
 			String input_line; //variable to read line by line
 			while( (input_line=my_reader.readLine()) != null){
 				current_line = input_line.split(","); //split the line at the tab

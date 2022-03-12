@@ -44,7 +44,7 @@ public class User {
 		AccountHolder.Num_account_holders = 0;
 
 		try{
-			BufferedReader my_reader = new BufferedReader(new FileReader("UserData.txt")); //declaring the reader object
+			BufferedReader my_reader = new BufferedReader(new FileReader("userdata.txt")); //declaring the reader object
 			String input_line; //Variable to read line by line 
 			while( (input_line=my_reader.readLine()) != null){
 				
@@ -170,7 +170,7 @@ public class User {
 		}
 		try{
 			PrintWriter wr = new PrintWriter(
-					new BufferedWriter (new FileWriter ("UserData.txt", false)));			
+					new BufferedWriter (new FileWriter ("userdata.txt", false)));			
 
 		// Replace existing file with one fewer line
 		for (int k = 0; k < User.NumUser-1; k++){

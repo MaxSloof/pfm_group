@@ -91,6 +91,64 @@ public class BankAccount {
 		} 
 	}
 
+	// Writing new account balance to bankaccounts file
+	public static void overwriteBalance(double newBalance, int loggedInUserID) {
+		// TODO Auto-generated method stub
+
+		BankAccount[] baArrayLocal = readFile();
+		
+
+		
+		try{
+			PrintWriter wr = new PrintWriter(
+					new BufferedWriter (new FileWriter ("bankaccounts.txt", false)));			
+			for (int i = 0; i < numBA; i++){
+				if(baArrayLocal[i].userID == loggedInUserID) {
+					baArrayLocal[i].balance = newBalance;
+				}
+				wr.println(baArrayLocal[i].iban +  "," + baArrayLocal[i].bankID + "," +
+				baArrayLocal[i].balance + "," + baArrayLocal[i].userID);
+			}
+			wr.close();																								
+	
+		} catch(IOException e){ 
+			System.out.print("Wrong! (writing)"); 
+		} 
+	}
+
+	// Reading the bankaccounts file (necessary for overwriteBalance)
+	public static BankAccount[] readFile() {
+		// TODO Auto-generated method stub
+		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
+		String localIban;
+		int localBankID, localUserID;
+		double localBalance;
+		String[] current_line = new String[3]; 
+		numBA = 0;
+		try{ 
+			BufferedReader myFile = new BufferedReader (new FileReader("bankaccounts.txt")); 
+			String input_line; 
+
+			while ((input_line = myFile.readLine()) != null){ 
+				current_line = input_line.split(","); 
+
+				localIban = current_line[0];
+				localBankID = Integer.parseInt(current_line[1]);
+				localBalance = Double.parseDouble(current_line[2]);
+				localUserID = Integer.parseInt(current_line[3]);
+
+				my_ba_local[BankAccount.numBA] = new BankAccount(localIban, localBankID, 
+				localBalance, localUserID);
+				BankAccount.numBA++;
+			} 
+			myFile.close();
+		} catch(IOException e){ 
+			System.out.print("Wrong! (writing)"); 
+		} 
+	
+	return(my_ba_local);
+	}
+
 	// Reading from the bankaccounts file
 	public static double returnBalance(int loggedInUserID){ 
 		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
