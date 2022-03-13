@@ -92,7 +92,7 @@ public class BankAccount {
 	}
 
 	// Writing new account balance to bankaccounts file
-	public static void overwriteBalance(double newBalance, int loggedInUserID) {
+	public static void overwriteBalance(double newBalance, String loggedInIban) {
 		// TODO Auto-generated method stub
 
 		BankAccount[] baArrayLocal = readFile();
@@ -103,11 +103,11 @@ public class BankAccount {
 			PrintWriter wr = new PrintWriter(
 					new BufferedWriter (new FileWriter ("bankaccounts.txt", false)));			
 			for (int i = 0; i < numBA; i++){
-				if(baArrayLocal[i].userID == loggedInUserID) {
+				if(baArrayLocal[i].iban.equals(loggedInIban)) {
 					baArrayLocal[i].balance = newBalance;
 				}
-				wr.println(baArrayLocal[i].iban +  "," + baArrayLocal[i].bankID + "," +
-				baArrayLocal[i].balance + "," + baArrayLocal[i].userID);
+			wr.println(baArrayLocal[i].iban +  "," + baArrayLocal[i].bankID + "," +
+			baArrayLocal[i].balance + "," + baArrayLocal[i].userID);
 			}
 			wr.close();																								
 	

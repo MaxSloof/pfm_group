@@ -22,12 +22,10 @@ public class Transaction {
 	
 	static Transaction[] transactions = new Transaction[100];
 
-
-	// Max method
-	public static void depositFunds(int loggedInUserID, String loggedInIban) {
+	public static void depositFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
 		
-		
+		String loggedInIban = BankAccount.returnIban(loggedInUserID);
 		Date currentDate = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		String date = dateFormat.format(currentDate);
@@ -38,7 +36,7 @@ public class Transaction {
 		
 		double newBalance = BankAccount.returnBalance(loggedInUserID) + amount;
 		
-		BankAccount.overwriteBalance(newBalance, loggedInUserID);
+		BankAccount.overwriteBalance(newBalance, toIban);
 		System.out.println("****************************************************************"); 
 		System.out.print("New Balance is: " + newBalance);
 
@@ -48,8 +46,9 @@ public class Transaction {
 
 		}
 
-	public static void withdrawFunds(int loggedInUserID, String loggedInIban) {
+	public static void withdrawFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
+		String loggedInIban = BankAccount.returnIban(loggedInUserID);
 
 		double balance = BankAccount.returnBalance(loggedInUserID); //logged in user's balance
 		
@@ -70,7 +69,7 @@ public class Transaction {
 		
 			double newBalance = balance - amount;
 		
-		BankAccount.overwriteBalance(newBalance, loggedInUserID);
+		BankAccount.overwriteBalance(newBalance, loggedInIban);
 		System.out.println("****************************************************************"); 
 		System.out.print("New Balance is: " + newBalance);
 
@@ -80,8 +79,10 @@ public class Transaction {
 
 	
 	// Sai still needs to fix this
-	public static void transferFunds(int loggedInUserID, String loggedInIban) {
+	public static void transferFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
+
+		String loggedInIban = BankAccount.returnIban(loggedInUserID);
 		double fromBalance = BankAccount.returnBalance(loggedInUserID);
 		
 		Date currentDate = new Date();
@@ -100,12 +101,12 @@ public class Transaction {
 				amount = userInputDouble.nextDouble();
 		}
 		
-		double toBalance = BankAccount.returnBalance(toIban);	//??Make method in BankAccount class to return balance based on Iban
+		double toBalance = BankAccount.returnBalance(loggedInUserID);	//??Make method in BankAccount class to return balance based on Iban
 			//local variables that represent new balances of both accounts 
 			double updatedFromBalance = fromBalance - amount;
 			double updatedToBalance = toBalance + amount;
 			
-		BankAccount.overwriteBalance(updatedFromBalance, loggedInUserID);
+		BankAccount.overwriteBalance(updatedFromBalance, fromIban);
 		System.out.println("****************************************************************"); 
 		System.out.print("New Balance is: " + updatedFromBalance);
 		

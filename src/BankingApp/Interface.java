@@ -122,18 +122,16 @@ public class Interface {
 
 			// Sai can add his methods
 			else if(userChoice==2) {
-				String loggedInIban = BankAccount.returnIban(my_loggedIn_account_holder.UserID);
-				Transaction.depositFunds(my_loggedIn_account_holder.UserID, loggedInIban);
+				Transaction.depositFunds(my_loggedIn_account_holder.UserID);
 			}
 
 			// Sai can add his methods
 			else if(userChoice==3) {
-				String loggedInIban = BankAccount.returnIban(my_loggedIn_account_holder.UserID);
-				Transaction.withdrawFunds(my_loggedIn_account_holder.UserID, loggedInIban);
+				Transaction.withdrawFunds(my_loggedIn_account_holder.UserID);
 			}
 			// Sai can add his methods
 			else if(userChoice==4) {
-
+				Transaction.transferFunds(my_loggedIn_account_holder.UserID);
 			}
 
 
@@ -281,7 +279,7 @@ public class Interface {
 
 		try{	
 			PrintWriter wr = new PrintWriter(
-					new BufferedWriter (new FileWriter("UserData.txt", true)));	
+					new BufferedWriter (new FileWriter("userdata.txt", true)));	
 			wr.println(TempFirstName + "," + TempLastName + "," + TempNewUserName + "," + TempNewUserPassword + "," + TempNewUserID + "," + AccountType);
 
 			wr.close();
@@ -297,7 +295,7 @@ public class Interface {
 		// TODO
 		try{
 			PrintWriter wr = new PrintWriter(
-					new BufferedWriter (new FileWriter ("UserData.txt", false)));			
+					new BufferedWriter (new FileWriter ("userdata.txt", false)));			
 			for (int i = 0; i < User.NumUser; i++){
 				wr.println(TempFirstName[i] + "," + TempLastName[i] + "," + TempNewUserName[i] + "," + TempNewUserPassword[i] +
 				 "," + TempNewUserID[i] + "," + AccountType[i]);
@@ -314,7 +312,7 @@ public class Interface {
 		Interface[] stTemp = new Interface[100]; // 100 here is an upper bound 
 		int stIndex = 0; // keeps track of the line number 
 		try{ 
-			BufferedReader myFile = new BufferedReader (new FileReader("UserData.txt")); 
+			BufferedReader myFile = new BufferedReader (new FileReader("userdata.t")); 
 
 			while ((myFile.readLine()) != null){ 
 				stIndex++; 
