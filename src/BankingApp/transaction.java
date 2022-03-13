@@ -39,6 +39,8 @@ public class Transaction {
 		double newBalance = BankAccount.returnBalance(loggedInUserID) + amount;
 		
 		BankAccount.overwriteBalance(newBalance, loggedInUserID);
+		System.out.println("****************************************************************"); 
+		System.out.print("New Balance is: " + newBalance);
 
 		transactions1[0] = new Transaction(date, fromIban, toIban, amount); // Does not work
 		writeFile(transactions1);
@@ -60,6 +62,7 @@ public class Transaction {
 		double amount = userInputDouble.nextDouble();
 		
 			while (amount > balance) {
+				System.out.println("****************************************************************"); 
 				System.out.println("Withdrawal value exceeded your balance!");
 				System.out.print("Please enter the amount to be withdrawn: ");
 				amount = userInputDouble.nextDouble();
@@ -68,6 +71,8 @@ public class Transaction {
 			double newBalance = balance - amount;
 		
 		BankAccount.overwriteBalance(newBalance, loggedInUserID);
+		System.out.println("****************************************************************"); 
+		System.out.print("New Balance is: " + newBalance);
 
 		transactions1[0] = new Transaction(date, fromIban, toIban, amount); // Does not work
 		writeFile(transactions1);
@@ -89,6 +94,7 @@ public class Transaction {
 		double amount = userInputDouble.nextDouble();
 			
 			while (amount > fromBalance) {
+				System.out.println("****************************************************************"); 
 				System.out.println("Insufficient Funds!");
 				System.out.print("Please enter the amount to be transferred: ");
 				amount = userInputDouble.nextDouble();
@@ -100,6 +106,8 @@ public class Transaction {
 			double updatedToBalance = toBalance + amount;
 			
 		BankAccount.overwriteBalance(updatedFromBalance, loggedInUserID);
+		System.out.println("****************************************************************"); 
+		System.out.print("New Balance is: " + updatedFromBalance);
 		
 		BankAccount.overwriteBalance(updatedToBalance, toIban); //make another method in BankAccount so toIban bank balance is also changed
 			
