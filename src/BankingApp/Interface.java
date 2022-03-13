@@ -103,9 +103,10 @@ public class Interface {
 			System.out.println("(2) Deposit to my Account");		//To be added
 			System.out.println("(3) Withdraw from my Account");		//To be added
 			System.out.println("(4) Transfer from my Account");		//To be added
-			System.out.println("(5) View my Account");			
-			System.out.println("(6) Modify my Account");		
-			System.out.println("(7) Logout"); 
+			System.out.println("(5) View Transaction History");	
+			System.out.println("(6) View my Account");			
+			System.out.println("(7) Modify my Account");		
+			System.out.println("(8) Logout"); 
 			System.out.println("--------------------------------------------------------"); 
 			System.out.print("I want to: ");
 			int userChoice = my_scanINT.nextInt();
@@ -133,9 +134,12 @@ public class Interface {
 			else if(userChoice==4) {
 				Transaction.transferFunds(my_loggedIn_account_holder.UserID);
 			}
+			
+			else if(userChoice==5){
+				Transaction.searchTransactions(my_loggedIn_account_holder.UserID);
+			} 
 
-
-			else if(userChoice==5) {
+			else if(userChoice==6) {
 				System.out.println("Your First Name is: "+ my_loggedIn_account_holder.FirstName);
 				System.out.println("Your Last Name is: "+ my_loggedIn_account_holder.LastName);
 				System.out.println("Your Username is: "+ my_loggedIn_account_holder.GetUserName(true));
@@ -143,7 +147,7 @@ public class Interface {
 				System.out.println("Your UserID is: "+ my_loggedIn_account_holder.UserID);
 			}
 
-			else if(userChoice==6) {
+			else if(userChoice==7) {
 				System.out.println("--------------------------------------------------------"); 
 				System.out.println("What Account Detail would you like to modify?");
 				System.out.println("(1) Change my First Name");		
@@ -164,7 +168,7 @@ public class Interface {
 
 			}
 
-			else if(userChoice==7){
+			else if(userChoice==8){
 				System.out.println("You are logged out"); break;
 			} 
 

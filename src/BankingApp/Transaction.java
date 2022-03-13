@@ -38,7 +38,7 @@ public class Transaction {
 		
 		BankAccount.overwriteBalance(newBalance, toIban);
 		System.out.println("****************************************************************"); 
-		System.out.print("New Balance is: " + newBalance);
+		System.out.println("New Balance is: " + newBalance);
 
 		transactions1[0] = new Transaction(date, fromIban, toIban, amount); // Does not work
 		writeFile(transactions1);
@@ -71,7 +71,7 @@ public class Transaction {
 		
 		BankAccount.overwriteBalance(newBalance, loggedInIban);
 		System.out.println("****************************************************************"); 
-		System.out.print("New Balance is: " + newBalance);
+		System.out.println("New Balance is: " + newBalance);
 
 		transactions1[0] = new Transaction(date, fromIban, toIban, amount); // Does not work
 		writeFile(transactions1);
@@ -108,7 +108,7 @@ public class Transaction {
 			
 		BankAccount.overwriteBalance(updatedFromBalance, fromIban);
 		System.out.println("****************************************************************"); 
-		System.out.print("New Balance is: " + updatedFromBalance);
+		System.out.println("New Balance is: " + updatedFromBalance);
 		
 		BankAccount.overwriteBalance(updatedToBalance, toIban); //make another method in BankAccount so toIban bank balance is also changed
 			
@@ -117,9 +117,9 @@ public class Transaction {
 	}
 	
 	
-	public static void searchTransactions(int loggedInUserID, String loggedInIban) {
+	public static void searchTransactions(int loggedInUserID) {
 		Transaction[] traArray = readFile();
-		String localIban = loggedInIban;
+		String loggedInIban = BankAccount.returnIban(loggedInUserID);
 		
 		//getting user input for specific dates
 		  System.out.print("Please enter the date of transactions you want to see (YYYY/MM/DD): ");
@@ -128,7 +128,7 @@ public class Transaction {
 		  System.out.println("Transaction History: ");
 		  
 		  for(int i= 0; i < numTra; i++) {
-			  if (traArray[i].date.equals(localDate) && (traArray[i].fromIban.equals(localIban) || traArray[i].toIban.equals(localIban))) {
+			  if (traArray[i].date.equals(localDate) && (traArray[i].fromIban.equals(loggedInIban) || traArray[i].toIban.equals(loggedInIban))) {
 					System.out.println(traArray[i].date + "," + traArray[i].fromIban + "," + traArray[i].toIban + "," +
 							traArray[i].amount);
 				  	}
