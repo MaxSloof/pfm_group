@@ -24,6 +24,7 @@ public class Transaction {
 
 	public static void depositFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
+		double amount = 0;
 		
 		String loggedInIban = BankAccount.returnIban(loggedInUserID);
 		Date currentDate = new Date();
@@ -31,14 +32,25 @@ public class Transaction {
 		String date = dateFormat.format(currentDate);
 		String fromIban = "-";
 		String toIban = loggedInIban; //iban of loggedin userId needs to be added!
-		System.out.print("Please enter the amount to be deposited (+): ");
-		double amount = userInputDouble.nextDouble();
+//catch mismatch exception		
+		boolean done = false;
 		
+		while(!done) {
+			try {
+				System.out.print("Please enter the amount to be deposited (+): ");
+				userInputDouble.useLocale(Locale.US);
+				amount = userInputDouble.nextDouble();
+				done = true;
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid Input! Enter a number (Format: 0000 OR 00000.00");
+				userInputDouble.nextLine();
+		}
+		}
 		double newBalance = BankAccount.returnBalance(loggedInUserID) + amount;
 		
 		BankAccount.overwriteBalance(newBalance, toIban);
 		System.out.println("****************************************************************"); 
-		System.out.println("New Balance is: " + newBalance);
+		System.out.printf(" %s, %.2f %n", "New Balance is: ", newBalance);
 
 		transactions1[0] = new Transaction(date, fromIban, toIban, amount); // Does not work
 		writeFile(transactions1);
@@ -49,56 +61,91 @@ public class Transaction {
 	public static void withdrawFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
 		String loggedInIban = BankAccount.returnIban(loggedInUserID);
-
+		
+		boolean done = false;
 		double balance = BankAccount.returnBalance(loggedInUserID); //logged in user's balance
+		double amount = 0;
 		
 		Date currentDate = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		String date = dateFormat.format(currentDate);
 		String fromIban = loggedInIban; //iban of loggedin userId needs to be added!
 		String toIban = "-";
+		
+		while(!done) {
+			try {
 		System.out.print("Please enter the amount to be withdrawn: ");
-		double amount = userInputDouble.nextDouble();
+		userInputDouble.useLocale(Locale.US);
+		amount = userInputDouble.nextDouble();
 		
 			while (amount > balance) {
 				System.out.println("****************************************************************"); 
 				System.out.println("Withdrawal value exceeded your balance!");
 				System.out.print("Please enter the amount to be withdrawn: ");
+				userInputDouble.useLocale(Locale.US);
 				amount = userInputDouble.nextDouble();
-			}
-		
+			} done = true;
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid Input! Enter a number (Format: 0000 OR 00000.00");
+				userInputDouble.nextLine();
+		}
+		}
 			double newBalance = balance - amount;
 		
 		BankAccount.overwriteBalance(newBalance, loggedInIban);
 		System.out.println("****************************************************************"); 
-		System.out.println("New Balance is: " + newBalance);
+		System.out.printf(" %s, %.2f %n", "New Balance is: ", newBalance);
 
 		transactions1[0] = new Transaction(date, fromIban, toIban, amount); // Does not work
 		writeFile(transactions1);
 	}
 
 	
-	// Sai still needs to fix this
+	// Sai still needs to fix the receiver's balance being correctly updated
 	public static void transferFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
-
-		String loggedInIban = BankAccount.returnIban(loggedInUserID);
+		
+		double amount = 0;
+		String localLogIban = BankAccount.returnIban(loggedInUserID);
 		double fromBalance = BankAccount.returnBalance(loggedInUserID);
+		boolean done = false;
 		
 		Date currentDate = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		String date = dateFormat.format(currentDate);
-		String fromIban = loggedInIban; //iban of loggedin userId needs to be added!
-		System.out.print("Please enter the iban of recepient: ");
-		String toIban = userInputString.nextLine();
-		System.out.print("Please enter the amount to be transferred: ");
-		double amount = userInputDouble.nextDouble();
-			
-			while (amount > fromBalance) {
-				System.out.println("****************************************************************"); 
-				System.out.println("Insufficient Funds!");
+		String fromIban = localLogIban; //iban of loggedin userId needs to be added!
+		String toIban = "";
+		
+		while(!done) {
+			try {
+				System.out.print("Please enter the iban of recepient: ");
+				toIban = userInputString.nextLine();
+				done = true;
+			} catch (InputMismatchException e) {
+			System.out.println("Invalid Input! Please try again.");
+			userInputString.nextLine();
+	}
+		}
+		
+		boolean noError = false;
+		
+		while(!noError) {
+			try {
 				System.out.print("Please enter the amount to be transferred: ");
+				userInputDouble.useLocale(Locale.US);
 				amount = userInputDouble.nextDouble();
+					
+					while (amount > fromBalance) {
+						System.out.println("****************************************************************"); 
+						System.out.println("Insufficient Funds!");
+						System.out.print("Please enter the amount to be transferred: ");
+						userInputDouble.useLocale(Locale.US);
+						amount = userInputDouble.nextDouble();
+				} noError = true;
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid Input! Enter a number (Format: 0000 OR 00000.00");
+				userInputDouble.nextLine();
+			}
 		}
 		
 		int toUserID = BankAccount.returnUserID(toIban);
@@ -112,7 +159,7 @@ public class Transaction {
 		System.out.println("****************************************************************"); 
 		System.out.println("New Balance is: " + updatedFromBalance);
 		
-		BankAccount.overwriteBalance(updatedToBalance, toIban); //make another method in BankAccount so toIban bank balance is also changed
+		BankAccount.overwriteBalance(updatedToBalance, toIban); //this part works
 			
 		transactions1[0] = new Transaction(date, fromIban, toIban, amount);
 		writeFile(transactions1);
@@ -134,6 +181,7 @@ public class Transaction {
 					System.out.println(traArray[i].date + "," + traArray[i].fromIban + "," + traArray[i].toIban + "," +
 							traArray[i].amount);
 				  	}
+			  System.out.println("No Transactions found");
 		  }
 	}
 	
