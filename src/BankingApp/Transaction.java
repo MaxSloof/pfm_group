@@ -126,7 +126,8 @@ public class Transaction {
 			userInputString.nextLine();
 	}
 		}
-		
+		int toUserID = BankAccount.returnUserID(toIban);
+		System.out.println("User ID: " + toUserID);
 		boolean noError = false;
 		
 		while(!noError) {
@@ -148,7 +149,7 @@ public class Transaction {
 			}
 		}
 		
-		int toUserID = BankAccount.returnUserID(toIban);
+		
 		double toBalance = BankAccount.returnBalance(toUserID);	//??Make method in BankAccount class to return balance based on Iban
 		
 		//local variables that represent new balances of both accounts 
