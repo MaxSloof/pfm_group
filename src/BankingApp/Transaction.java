@@ -52,9 +52,10 @@ public class Transaction {
 		
 		BankAccount.overwriteBalance(newBalance, toIban);
 		System.out.println("****************************************************************"); 
-		System.out.printf(" %s, %.2f %n", "New Balance is: ", newBalance);
+		System.out.print("New Balance is: ");
+		System.out.printf("%.2f %n",  newBalance);
 
-		transactions1[0] = new Transaction(date, fromIban, toIban, amount); // Does not work
+		transactions1[0] = new Transaction(date, fromIban, toIban, amount); 
 		writeFile(transactions1);
 
 
@@ -71,7 +72,7 @@ public class Transaction {
 		Date currentDate = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		String date = dateFormat.format(currentDate);
-		String fromIban = loggedInIban; //iban of loggedin userId needs to be added!
+		String fromIban = loggedInIban; 
 		String toIban = "-";
 		
 		while(!done) {
@@ -96,14 +97,15 @@ public class Transaction {
 		
 		BankAccount.overwriteBalance(newBalance, loggedInIban);
 		System.out.println("****************************************************************"); 
-		System.out.printf(" %s, %.2f %n", "New Balance is: ", newBalance);
+		System.out.print("New Balance is: ");
+		System.out.printf("%.2f %n", newBalance);
 
-		transactions1[0] = new Transaction(date, fromIban, toIban, amount); // Does not work
+		transactions1[0] = new Transaction(date, fromIban, toIban, amount); 
 		writeFile(transactions1);
 	}
 
 	
-	// Sai still needs to fix the receiver's balance being correctly updated
+	
 	public static void transferFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
 		
@@ -115,7 +117,7 @@ public class Transaction {
 		Date currentDate = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		String date = dateFormat.format(currentDate);
-		String fromIban = localLogIban; //iban of loggedin userId needs to be added!
+		String fromIban = localLogIban; 
 		String toIban = "";
 		
 		while(!done) {
