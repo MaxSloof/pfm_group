@@ -31,7 +31,7 @@ public class Transaction {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		String date = dateFormat.format(currentDate);
 		String fromIban = "-";
-		String toIban = loggedInIban; //iban of loggedin userId needs to be added!
+		String toIban = loggedInIban; 
 		
 		//catch mismatch exception		
 		boolean done = false;
@@ -131,7 +131,7 @@ public class Transaction {
 	}
 		}
 		int toUserID = BankAccount.returnUserID(toIban);
-		System.out.println("User ID: " + toUserID);
+
 		boolean noError = false;
 		
 		while(!noError) {

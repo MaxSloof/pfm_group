@@ -108,7 +108,7 @@ public class Interface {
 			System.out.println("(7) Modify my Account");		
 			System.out.println("(8) Logout"); 
 			System.out.println("--------------------------------------------------------"); 
-			System.out.print("Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): : ");
+			System.out.print("Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): ");
 			int userChoice = my_scanINT.nextInt();
 
 			// Retrieve balance from BankAccount class
