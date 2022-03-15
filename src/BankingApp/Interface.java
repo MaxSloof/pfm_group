@@ -100,15 +100,15 @@ public class Interface {
 			System.out.println("--------------------------------------------------------"); 
 			System.out.println("Please select from the menu option below");
 			System.out.println("(1) View my Balance");
-			System.out.println("(2) Deposit to my Account");		//To be added
-			System.out.println("(3) Withdraw from my Account");		//To be added
-			System.out.println("(4) Transfer from my Account");		//To be added
+			System.out.println("(2) Deposit to my Account");		
+			System.out.println("(3) Withdraw from my Account");		
+			System.out.println("(4) Transfer from my Account");		
 			System.out.println("(5) View Transaction History");	
 			System.out.println("(6) View my Account");			
 			System.out.println("(7) Modify my Account");		
 			System.out.println("(8) Logout"); 
 			System.out.println("--------------------------------------------------------"); 
-			System.out.print("I want to: ");
+			System.out.print("Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): : ");
 			int userChoice = my_scanINT.nextInt();
 
 			// Retrieve balance from BankAccount class
@@ -155,7 +155,7 @@ public class Interface {
 				System.out.println("(3) Change my Username");		
 				System.out.println("(4) Change my Password"); 		
 				System.out.println("--------------------------------------------------------"); 
-				System.out.print("I want to: ");
+				System.out.print("Please enter your choice (1, 2, 3 or 4): ");
 				int userChoice1 = my_scanINT.nextInt();	
 				
 				if(userChoice1 == 1) {System.out.print("My new first name: ");}
@@ -191,7 +191,7 @@ public class Interface {
 			System.out.println("(3) Delete Client Account");		
 			System.out.println("(4) Logout"); 
 			System.out.println("--------------------------------------------------------");
-			System.out.print("I want to: ");
+			System.out.print("Please enter your choice (1, 2, 3 or 4): ");
 			int userChoice = my_scanINT.nextInt();
 
 			if(userChoice==1){						
@@ -213,7 +213,7 @@ public class Interface {
 				System.out.println("(3) Change Client Username");		
 				System.out.println("(4) Change Client Password"); 		
 				System.out.println("--------------------------------------------------------"); 
-				System.out.print("I want to: ");
+				System.out.print("Please enter your choice (1, 2, 3 or 4): ");
 				int userChoice1 = my_scanINT.nextInt();	
 				
 				if(userChoice1 == 1) {System.out.print("Account Holder's new first name: ");}
