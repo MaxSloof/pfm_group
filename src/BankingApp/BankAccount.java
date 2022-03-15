@@ -292,7 +292,7 @@ public class BankAccount {
 			} 
 
 			for(int i = 0; i < BankAccount.numBA; i++) {
-				if(my_ba_local[i].iban == Iban){
+				if(my_ba_local[i].iban.equals(Iban)){
 					toUserID = my_ba_local[i].userID;
 				}
 			}

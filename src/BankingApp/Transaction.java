@@ -150,7 +150,7 @@ public class Transaction {
 		
 		int toUserID = BankAccount.returnUserID(toIban);
 		double toBalance = BankAccount.returnBalance(toUserID);	//??Make method in BankAccount class to return balance based on Iban
-		
+
 		//local variables that represent new balances of both accounts 
 		double updatedFromBalance = fromBalance - amount;
 		double updatedToBalance = toBalance + amount;
@@ -169,20 +169,36 @@ public class Transaction {
 	public static void searchTransactions(int loggedInUserID) {
 		Transaction[] traArray = readFile();
 		String loggedInIban = BankAccount.returnIban(loggedInUserID);
+
+		String[] returnedDate = new String[100];
+		String[] returnedFromIban = new String[100];
+		String[] returnedToIban = new String[100];
+		double[] returnedAmount = new double[100];
 		
+		int j = 0; // Counter for returned.. arrays
+
 		//getting user input for specific dates
-		  System.out.print("Please enter the date of transactions you want to see (YYYY/MM/DD): ");
-		  String localDate = userInputString.nextLine();
+		System.out.print("Please enter the date of transactions you want to see (YYYY/MM/DD): ");
+		String localDate = userInputString.nextLine();
+		
+		System.out.println("Transaction History: ");
 		  
-		  System.out.println("Transaction History: ");
-		  
-		  for(int i= 0; i < numTra; i++) {
-			  if (traArray[i].date.equals(localDate) && (traArray[i].fromIban.equals(loggedInIban) || traArray[i].toIban.equals(loggedInIban))) {
-					System.out.println(traArray[i].date + "," + traArray[i].fromIban + "," + traArray[i].toIban + "," +
-							traArray[i].amount);
-				  	}
-			  System.out.println("No Transactions found");
-		  }
+		for(int i= 0; i < numTra; i++) {
+			if (traArray[i].date.equals(localDate) && (traArray[i].fromIban.equals(loggedInIban) || traArray[i].toIban.equals(loggedInIban))) {
+				returnedDate[j] = traArray[i].date;
+				returnedFromIban[j] = traArray[i].fromIban;
+				returnedToIban[j] = traArray[i].toIban;
+				returnedAmount[j] = traArray[i].amount;
+				j++;
+				}
+		
+		}
+		if(returnedDate[0] != null) {
+			for(int i = 0; i < j;i++)
+			System.out.println(returnedDate[i] + "," + returnedFromIban[i] + "," + returnedToIban[i] + "," +
+						returnedAmount[i]);
+		} else System.out.println("No Transactions found");
+		
 	}
 	
 	// Gets an array of transaction objects and appends it to the file 
