@@ -32,7 +32,8 @@ public class Transaction {
 		String date = dateFormat.format(currentDate);
 		String fromIban = "-";
 		String toIban = loggedInIban; //iban of loggedin userId needs to be added!
-//catch mismatch exception		
+		
+		//catch mismatch exception		
 		boolean done = false;
 		
 		while(!done) {
@@ -41,6 +42,7 @@ public class Transaction {
 				userInputDouble.useLocale(Locale.US);
 				amount = userInputDouble.nextDouble();
 				done = true;
+				
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid Input! Enter a number (Format: 0000 OR 00000.00");
 				userInputDouble.nextLine();
