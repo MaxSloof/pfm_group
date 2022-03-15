@@ -227,6 +227,45 @@ public class BankAccount {
 		return(loggedInIban);
 		
 	}
+
+	public static int returnUserID(String Iban){ 
+		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
+		String localIban;
+		int localBankID, localUserID, toUserID = 0;
+		double localBalance;
+		String[] current_line = new String[3]; 
+		numBA = 0;
+		try{ 
+			BufferedReader myFile = new BufferedReader (new FileReader("bankaccounts.txt")); 
+			String input_line; 
+
+			while ((input_line = myFile.readLine()) != null){ 
+				current_line = input_line.split(","); 
+
+				localIban = current_line[0];
+				localBankID = Integer.parseInt(current_line[1]);
+				localBalance = Double.parseDouble(current_line[2]);
+				localUserID = Integer.parseInt(current_line[3]);
+
+				my_ba_local[BankAccount.numBA] = new BankAccount(localIban, 
+				localBankID, localBalance, localUserID);
+				BankAccount.numBA++;
+			} 
+
+			for(int i = 0; i < BankAccount.numBA; i++) {
+				if(my_ba_local[i].iban == Iban){
+					toUserID = my_ba_local[i].userID;
+				}
+			}
+			myFile.close(); 
+
+		} catch(IOException e){ 
+			System.out.print("Wrong! (Reading)"); 
+		} 
+
+		return(toUserID);
+		
+	}
 	// Returning the index of the latest line, so that I can create a new file
 	public static int returnIndex(){ 
 		BankAccount[] stTemp = new BankAccount[100]; // 100 here is an upper bound 

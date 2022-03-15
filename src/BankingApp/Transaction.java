@@ -101,10 +101,12 @@ public class Transaction {
 				amount = userInputDouble.nextDouble();
 		}
 		
-		double toBalance = BankAccount.returnBalance(loggedInUserID);	//??Make method in BankAccount class to return balance based on Iban
-			//local variables that represent new balances of both accounts 
-			double updatedFromBalance = fromBalance - amount;
-			double updatedToBalance = toBalance + amount;
+		int toUserID = BankAccount.returnUserID(toIban);
+		double toBalance = BankAccount.returnBalance(toUserID);	//??Make method in BankAccount class to return balance based on Iban
+		
+		//local variables that represent new balances of both accounts 
+		double updatedFromBalance = fromBalance - amount;
+		double updatedToBalance = toBalance + amount;
 			
 		BankAccount.overwriteBalance(updatedFromBalance, fromIban);
 		System.out.println("****************************************************************"); 
