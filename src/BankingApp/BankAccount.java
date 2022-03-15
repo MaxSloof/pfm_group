@@ -189,44 +189,6 @@ public class BankAccount {
 		
 	}
 
-	public static double retreiveBalance(String toIban){ 
-		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
-		String localIban;
-		int localBankID, localUserID;
-		double localBalance, toBalance = 0;
-		String[] current_line = new String[3]; 
-		numBA = 0;
-		try{ 
-			BufferedReader myFile = new BufferedReader (new FileReader("bankaccounts.txt")); 
-			String input_line; 
-
-			while ((input_line = myFile.readLine()) != null){ 
-				current_line = input_line.split(","); 
-
-				localIban = current_line[0];
-				localBankID = Integer.parseInt(current_line[1]);
-				localBalance = Double.parseDouble(current_line[2]);
-				localUserID = Integer.parseInt(current_line[3]);
-
-				my_ba_local[BankAccount.numBA] = new BankAccount(localIban, localBankID, 
-				localBalance, localUserID);
-				BankAccount.numBA++;
-			} 
-
-			for(int i = 0; i < BankAccount.numBA; i++) {
-				if(my_ba_local[i].iban == toIban){
-					toBalance = my_ba_local[i].balance;
-				}
-			}
-			myFile.close(); 
-
-		} catch(IOException e){ 
-			System.out.print("Wrong! (Reading)"); 
-		} 
-
-		return(toBalance);
-		
-	}
 	
 	public static String returnIban(int loggedInUserID){ 
 		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
