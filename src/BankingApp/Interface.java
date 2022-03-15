@@ -3,7 +3,6 @@ package BankingApp;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.util.*;
-import java.util.Scanner;
 
 public class Interface {
 
@@ -23,7 +22,8 @@ public class Interface {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		boolean done = false;
+		int userChoice=0;
 		while(true){
 			//second: login
 			boolean BankEmployeeLoggedIn=false, AccountHolderLoggedIn=false; //turn true when either bank employee or account holder logs in
@@ -35,8 +35,18 @@ public class Interface {
 			System.out.println("(1) Login");
 			System.out.println("(2) Exit"); 
 			System.out.println("--------------------------------------------------------"); 
-			System.out.print("Please enter your choice (0, 1 or 2): ");
-			int userChoice = my_scanINT.nextInt();
+			
+			while(!done) {
+				try {
+					System.out.print("Please enter your choice (0, 1 or 2): ");
+					userChoice = my_scanINT.nextInt();
+					done = true;
+				} catch (InputMismatchException e) {
+					System.out.println("Invalid Input! Enter a number (0, 1 or 2) ");
+					my_scanINT.nextLine();
+				}
+			}
+			
 
 
 			if(userChoice==0) SignUp();
