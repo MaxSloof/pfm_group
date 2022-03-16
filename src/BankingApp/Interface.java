@@ -216,7 +216,7 @@ public class Interface {
 					}
 				}		
 
-				User.viewAccount(inputUserID);
+				User.viewClientAccount(inputUserID);
 			}	
 
 
