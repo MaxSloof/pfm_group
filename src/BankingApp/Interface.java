@@ -94,7 +94,7 @@ public class Interface {
 			
 			// User chooses the option to exit and exit message appears
 			else if (userChoice==2){
-				System.out.println("BYE!");
+				System.out.println("You have exited the application!");
 				break; 
 			}
 			

@@ -222,6 +222,7 @@ public class User {
 	
 	
 	public static void deleteAccount(int clientUserID) { //Needs some work. Not completely running okay yet.
+		
 		User [] my_users_old = myUsers;
 		User [] my_users_new = new User [NumUser - 1];
 
@@ -234,25 +235,30 @@ public class User {
 		
 		for(int i = 0, j = 0; i < NumUser; i++) {
 			if(clientUserID != my_users_old[i].UserID) {
-				my_users_new [j] = my_users_old [i];
+				my_users_new [j] = my_users_old[i];
+				j++;
 			}
-
-		firstNameArray[i] = my_users_new[j].FirstName;
-		lastNameArray [i] = my_users_new[j].LastName;
-		usernameArray [i] = my_users_new[j].UserName;
-		passwordArray [i] = my_users_new[j].Password;
-		userIDArray [i] = my_users_new[j].UserID;
-		roleArray [i] = my_users_new[j].Role;	
 		}
 		
+		int new_length = 0;
+		for(int j = 0; j < my_users_new.length; j++) {
+			firstNameArray[j] = my_users_new[j].FirstName;
+			lastNameArray [j] = my_users_new[j].LastName;
+			usernameArray [j] = my_users_new[j].UserName;
+			passwordArray [j] = my_users_new[j].Password;
+			userIDArray   [j] = my_users_new[j].UserID;
+			roleArray 	  [j] = my_users_new[j].Role;
+			new_length++;	
+		}
+
 		try{
 			PrintWriter wr = new PrintWriter(
 					new BufferedWriter (new FileWriter ("userdata.txt", false)));			
 
 		// Replace existing file with one fewer line
-		for (int k = 0; k < User.NumUser-1; k++){
+		for (int k = 0; k < new_length; k++){
 				wr.println(firstNameArray[k] + "," + lastNameArray[k] + "," + usernameArray[k] + "," + passwordArray[k] +
-				 "," + userIDArray[k] + "," + roleArray[k]);
+					"," + userIDArray[k] + "," + roleArray[k]);
 		}
 		wr.close();																								
 		}
@@ -261,6 +267,6 @@ public class User {
 		}
 		// Print completion message
 		System.out.println("User with UserID " + clientUserID + " has succesfully been deleted");
-	}	
+		}	
 
 }
