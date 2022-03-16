@@ -30,7 +30,7 @@ public class Transaction {
 		Date currentDate = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		String date = dateFormat.format(currentDate);
-		String fromIban = "-";
+		String fromIban = "------------------";
 		String toIban = loggedInIban; 
 		
 		//catch mismatch exception		
@@ -73,7 +73,7 @@ public class Transaction {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		String date = dateFormat.format(currentDate);
 		String fromIban = loggedInIban; 
-		String toIban = "-";
+		String toIban = "------------------";
 		
 		while(!done) {
 			try {
@@ -199,9 +199,10 @@ public class Transaction {
 		
 		}
 		if(returnedDate[0] != null) {
-			for(int i = 0; i < j;i++)
-			System.out.println(returnedDate[i] + "," + returnedFromIban[i] + "," + returnedToIban[i] + "," +
-						returnedAmount[i]);
+			System.out.println("Date 	   | From Bank Account  | To Bank Account    | Amount in Euros");
+			for(int i = 0; i < j;i++) {
+				System.out.println(returnedDate[i] + " | " + returnedFromIban[i] + " | " + returnedToIban[i] + " | " +
+					returnedAmount[i]); }
 		} else System.out.println("No Transactions found");
 		
 	}
