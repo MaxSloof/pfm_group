@@ -59,7 +59,7 @@ public class Transaction {
 
 
 		}
-//If user chooses to withdraw funds form their account
+ 	// If user chooses to withdraw funds form their account
 	public static void withdrawFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
 		String loggedInIban = BankAccount.returnIban(loggedInUserID); //get user's iban
