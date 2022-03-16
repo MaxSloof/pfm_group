@@ -99,7 +99,22 @@ public class User {
 	}
 	
 	
-	public static void viewAccount(int clientUserID) { 
+	public static void viewMyAccount(int myUserID) { 
+		User[] my_users = myUsers; 
+		
+		for(int i = 0; i < NumUser; i++) {
+			if(my_users[i].UserID == myUserID) {
+				System.out.println("Your first name is:" + my_users[i].FirstName);
+				System.out.println("Your last name is:" + my_users[i].LastName);
+				System.out.println("Your username is:" + my_users[i].UserName);
+				System.out.println("Your password is:" + my_users[i].Password);
+				System.out.println("Your user ID is:" + my_users[i].UserID);
+			}
+		}
+	}
+
+	
+	public static void viewClientAccount(int clientUserID) { 
 		User[] my_users = myUsers; 
 		
 		for(int i = 0; i < NumUser; i++) {
@@ -115,6 +130,7 @@ public class User {
 		}
 	}
 
+	
 	public static Boolean checkUsername(String newUsername) {
 		User[] myUsersLocal = ReadUserData();
 		Boolean existingUsername = false;
@@ -127,6 +143,7 @@ public class User {
 		}
 		return existingUsername;
 	}
+	
 	
 	public static void changeAccountElement(String newChangeElement, int loggedInUserID, int changeElement) {
 		User[] my_users_local = myUsers; 
