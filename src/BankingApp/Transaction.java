@@ -123,9 +123,10 @@ public class Transaction {
 		
 		while(!done) {		
 			try {
-				System.out.print("Please enter the iban of recepient: ");
+				System.out.print("Please enter the IBAN of recepient: ");
 				toIban = userInputString.nextLine();
-				done = true;
+				if(toIban.length()==18) done = true; // Check whether IBAN meets 18 character requirement
+				else {System.out.println("Invalid Input! Please try again.");}
 			} catch (InputMismatchException e) {
 			System.out.println("Invalid Input! Please try again.");
 			userInputString.nextLine();
