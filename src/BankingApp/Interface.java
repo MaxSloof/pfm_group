@@ -36,7 +36,7 @@ public class Interface {
 			System.out.println("(2) Exit"); 
 			System.out.println("--------------------------------------------------------"); 
 			
-			Boolean done = false;
+			Boolean done = false; 
 			
 			while(!done)	
 			try {
@@ -50,8 +50,6 @@ public class Interface {
 			}
 				
 			if(userChoice==0) SignUp();
-
-			
 			
 			if(userChoice==1){
 				User[] my_users = User.ReadUserData();
