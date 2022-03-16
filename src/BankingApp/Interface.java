@@ -205,16 +205,40 @@ public class Interface {
 			int userChoice = my_scanINT.nextInt();
 
 			if(userChoice==1){						
-				System.out.print ("What is the UserID of the Client Account you want to view?: ");									
-				int inputUserID = userInputInt.nextInt();	
+				int inputUserID = 0;
+				boolean done = false;
+			
+				while(!done) {	
+					try {
+						System.out.print ("What is the UserID of the Client Account you want to view?: ");									
+						inputUserID = userInputInt.nextInt();
+						done = true;	
+					} 
+					catch (InputMismatchException e) {
+						System.out.println("Invalid Input! Enter a number (Format: 000)");
+						userInputInt.nextLine();
+					}
+				}		
 
 				User.viewAccount(inputUserID);
 			}	
 
 
 			else if(userChoice==2) {
-				System.out.print ("What is the UserID of the Client Account you want to edit?: ");									
-				int inputUserID = userInputInt.nextInt();		
+				int inputUserID = 0;
+				boolean done = false;
+			
+				while(!done) {	
+					try {
+						System.out.print ("What is the UserID of the Client Account you want to modify?: ");									
+						inputUserID = userInputInt.nextInt();
+						done = true;	
+					} 
+					catch (InputMismatchException e) {
+						System.out.println("Invalid Input! Enter a number (Format: 000)");
+						userInputInt.nextLine();
+					}
+				}		
 
 				System.out.println("--------------------------------------------------------"); 
 				System.out.println("What Client Account Detail would you like to modify?");
@@ -237,12 +261,25 @@ public class Interface {
 
 
 			else if(userChoice==3) {
-				System.out.print ("What is the UserID of the Client Account you want to remove?: ");									
-				int inputUserName = userInputInt.nextInt();		
+				int inputUserID = 0;
+				boolean done = false;
 
-				User.deleteAccount(inputUserName);
+				while(!done) {	
+					try {
+						System.out.print ("What is the UserID of the Client Account you want to delete?: ");									
+						inputUserID = userInputInt.nextInt();
+						done = true;	
+					} 
+					catch (InputMismatchException e) {
+						System.out.println("Invalid Input! Enter a number (Format: 000)");
+						userInputInt.nextLine();
+					}
+				}	
+
+				User.deleteAccount(inputUserID);
 			}
 
+			
 			else if(userChoice==4){
 				System.out.println("You are logged out"); break;
 			} 
