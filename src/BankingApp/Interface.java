@@ -307,7 +307,7 @@ public class Interface {
 				else if(userChoice1 == 3) {System.out.print("Account Holder's new username: ");}
 				else if(userChoice1 == 4) {System.out.print("Account Holder's new password: ");}
 				String input = userInputString.nextLine();
-					User.changeAccountElement(input, inputUserID, userChoice1);
+					User.changeUserAccountElement(input, inputUserID, userChoice1);
 			}
 			
 			// Retrieve from User class, to delete client account
