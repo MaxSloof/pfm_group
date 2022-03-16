@@ -22,7 +22,7 @@ public class Interface {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		boolean done = false;
+		
 		int userChoice=0;
 		while(true){
 			//second: login
@@ -36,19 +36,19 @@ public class Interface {
 			System.out.println("(2) Exit"); 
 			System.out.println("--------------------------------------------------------"); 
 			
-			while(!done) {
-				try {
-					System.out.print("Please enter your choice (0, 1 or 2): ");
-					userChoice = my_scanINT.nextInt();
-					done = true;
-				} catch (InputMismatchException e) {
-					System.out.println("Invalid Input! Enter a number (0, 1 or 2) ");
-					my_scanINT.nextLine();
-				}
-			}
+			Boolean done = false;
 			
-
-
+			while(!done)	
+			try {
+				System.out.print("Please enter your choice (0, 1 or 2): ");
+				userChoice = my_scanINT.nextInt();
+				done = true;
+				
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid Input! Enter a number (0, 1 or 2) ");
+				my_scanINT.nextLine();
+			}
+				
 			if(userChoice==0) SignUp();
 
 			
@@ -332,7 +332,6 @@ public class Interface {
 			PrintWriter wr = new PrintWriter(
 					new BufferedWriter (new FileWriter("userdata.txt", true)));	
 			wr.println(TempFirstName + "," + TempLastName + "," + TempNewUserName + "," + TempNewUserPassword + "," + TempNewUserID + "," + AccountType);
-
 			wr.close();
 		}
 		catch(IOException e){
@@ -363,7 +362,7 @@ public class Interface {
 		Interface[] stTemp = new Interface[100]; // 100 here is an upper bound 
 		int stIndex = 0; // keeps track of the line number 
 		try{ 
-			BufferedReader myFile = new BufferedReader (new FileReader("userdata.t")); 
+			BufferedReader myFile = new BufferedReader (new FileReader("userdata.txt")); 
 
 			while ((myFile.readLine()) != null){ 
 				stIndex++; 

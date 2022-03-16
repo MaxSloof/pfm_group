@@ -8,11 +8,11 @@ public class User {
 	private String UserName, Password;
 	public String FirstName, LastName, Role;
 	public int UserID;
-	static int NumUser=0; //To store the number of users
+	static int NumUser = 0; //To store the number of users
 	static User[] myUsers = new User[100];
 
 
-	// Constructor
+	// Constructors
 	public User(int UserID, String FirstName, String LastName, String Role, String UserName, String Password){
 		this.UserName = UserName;
 		this.Password = Password;
@@ -31,6 +31,7 @@ public class User {
 		this.Role = Role;
 	}
 
+	// Methods
 	public static User[] ReadUserData() {
 		String LocalFirstName, LocalLastName, LocalUserName, LocalPassword, LocalRole; 
 		int LocalID;
@@ -60,7 +61,7 @@ public class User {
 
 
 				if(LocalRole.equals("BankEmployee")){
-					BankEmployee.Num_bank_employees++;
+					BankEmployee.Num_bank_employees++; 
 				}
 				if(LocalRole.equals("AccountHolder")){
 					AccountHolder.Num_account_holders++;
@@ -168,6 +169,7 @@ public class User {
 		userIDArray [i] = my_users_new[j].UserID;
 		roleArray [i] = my_users_new[j].Role;	
 		}
+		
 		try{
 			PrintWriter wr = new PrintWriter(
 					new BufferedWriter (new FileWriter ("userdata.txt", false)));			
