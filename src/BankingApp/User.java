@@ -104,16 +104,29 @@ public class User {
 		
 		for(int i = 0; i < NumUser; i++) {
 			if(my_users[i].UserID == clientUserID) {
-				System.out.println("The client's first name is:" + my_users[i].FirstName);
-				System.out.println("The client's last name is:" + my_users[i].LastName);
-				System.out.println("The client's username is:" + my_users[i].UserName);
-				System.out.println("The client's password is:" + my_users[i].Password);
-				System.out.println("The client's user ID is:" + my_users[i].UserID);
-				System.out.println("The client's balance is:" + BankAccount.returnBalance(clientUserID));
+				System.out.println("The client's first name is: " + my_users[i].FirstName);
+				System.out.println("The client's last name is:  " + my_users[i].LastName);
+				System.out.println("The client's username is:   " + my_users[i].UserName);
+				System.out.println("The client's password is:   " + my_users[i].Password);
+				System.out.println("The client's user ID is:    " + my_users[i].UserID);
+				System.out.println("The client's IBAN is:       "+ BankAccount.returnIban(clientUserID));
+				System.out.println("The client's balance is:    " + BankAccount.returnBalance(clientUserID));
 			}
 		}
 	}
 
+	public static Boolean checkUsername(String newUsername) {
+		User[] myUsersLocal = ReadUserData();
+		Boolean existingUsername = false;
+
+		for (int i = 0; i < NumUser; i++){
+			if (newUsername.equals(myUsersLocal[i].UserName)) {
+				existingUsername = true;
+				break;
+			}
+		}
+		return existingUsername;
+	}
 	
 	public static void changeAccountElement(String newChangeElement, int loggedInUserID, int changeElement) {
 		User[] my_users_local = myUsers; 

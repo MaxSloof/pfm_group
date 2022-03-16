@@ -186,6 +186,8 @@ public class Transaction {
 		System.out.print("Please enter the date of transactions you want to see (YYYY/MM/DD): ");
 		String localDate = userInputString.nextLine();
 		
+		System.out.println("\nYour IBAN: " + loggedInIban);
+		System.out.println("--------------------------------------------------------");
 		System.out.println("Transaction History: ");
 		  
 		for(int i= 0; i < numTra; i++) {
@@ -199,7 +201,7 @@ public class Transaction {
 		
 		}
 		if(returnedDate[0] != null) {
-			System.out.println("Date 	   | From Bank Account  | To Bank Account    | Amount in Euros");
+			System.out.println("Date 	   | From Bank Account  | To Bank Account    | Amount (Euros)");
 			for(int i = 0; i < j;i++) {
 				System.out.println(returnedDate[i] + " | " + returnedFromIban[i] + " | " + returnedToIban[i] + " | " +
 					returnedAmount[i]); }

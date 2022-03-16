@@ -149,10 +149,11 @@ public class Interface {
 
 			else if(userChoice==6) {
 				System.out.println("Your First Name is: "+ my_loggedIn_account_holder.FirstName);
-				System.out.println("Your Last Name is: "+ my_loggedIn_account_holder.LastName);
-				System.out.println("Your Username is: "+ my_loggedIn_account_holder.GetUserName(true));
-				System.out.println("Your Password is: "+ my_loggedIn_account_holder.GetPassword(true));
-				System.out.println("Your UserID is: "+ my_loggedIn_account_holder.UserID);
+				System.out.println("Your Last Name is:  "+ my_loggedIn_account_holder.LastName);
+				System.out.println("Your Username is:   "+ my_loggedIn_account_holder.GetUserName(true));
+				System.out.println("Your Password is:   "+ my_loggedIn_account_holder.GetPassword(true));
+				System.out.println("Your UserID is:     "+ my_loggedIn_account_holder.UserID);
+				System.out.println("Your IBAN is:       "+ BankAccount.returnIban(my_loggedIn_account_holder.UserID));
 			}
 
 			else if(userChoice==7) {
@@ -297,6 +298,16 @@ public class Interface {
 		TempLastName = my_scan.nextLine(); 
 		System.out.print("Please enter your username: ");
 		TempNewUserName = my_scan.nextLine(); 
+		
+		// Check whether new username already exists
+		Boolean existingUsername = User.checkUsername(TempNewUserName);
+		while (existingUsername == true) {
+			System.out.println("Username already exists. Please try a new username");
+			System.out.print("Please enter your username: ");
+			TempNewUserName = my_scan.nextLine(); 
+			existingUsername = User.checkUsername(TempNewUserName);
+		}
+
 		System.out.print("Please enter your password: ");
 		TempNewUserPassword = my_scan.nextLine(); 
 		System.out.print("Please confirm your password: ");
