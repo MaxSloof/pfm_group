@@ -99,6 +99,21 @@ public class User {
 	}
 	
 	
+	public static void viewMyBalance(int myUserID) { 
+		User[] my_users = myUsers; 
+		
+		for(int i = 0; i < NumUser; i++) {
+			if(my_users[i].UserID == myUserID) {
+				System.out.println("\n***************************************");
+				System.out.println("*************** Overview **************");
+				System.out.println("***************************************");
+				System.out.printf("IBAN: %s\n", BankAccount.returnIban(my_users[i].UserID));
+				System.out.printf("Bank balance: %.2f\n\n", BankAccount.returnBalance(my_users[i].UserID));
+			}
+		}
+	}
+	
+	
 	public static void viewMyAccount(int myUserID) { 
 		User[] my_users = myUsers; 
 		
