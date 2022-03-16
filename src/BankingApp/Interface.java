@@ -129,6 +129,7 @@ public class Interface {
 				User.viewMyBalance(my_loggedIn_account_holder.UserID);
 			}
 			
+			// Retrieve from Transaction class
 			else if(userChoice==2) {
 				Transaction.depositFunds(my_loggedIn_account_holder.UserID);
 			}
