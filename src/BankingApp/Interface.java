@@ -44,7 +44,7 @@ public class Interface {
 					done = true;
 					
 				} catch (InputMismatchException e) {
-					System.out.println("Invalid Input! Enter a number (0, 1 or 2) ");
+					System.out.println("Invalid Input! Enter an integer (format: 0) ");
 					my_scanINT.nextLine();
 				}
 			}
@@ -121,18 +121,18 @@ public class Interface {
 			System.out.println("(8) Logout"); 
 			System.out.println("--------------------------------------------------------"); 
 			
-			int inputUserID = 0;
+			int userChoice = 0;
 			boolean done = false;
 			
 			while(!done) {	
 					try {
 						System.out.print("Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): ");
-						int userChoice = my_scanINT.nextInt();
-						
+						userChoice = my_scanINT.nextInt();
+						done = true;
 					} 
 					catch (InputMismatchException e) {
-						System.out.println("Invalid Input! Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): ");
-						userInputInt.nextLine();
+						System.out.println("Invalid Input! Please enter an integer (Format: 0) ");
+						my_scanINT.nextLine();
 					}
 				}	
 			
@@ -175,9 +175,19 @@ public class Interface {
 				System.out.println("(3) Change my Password");			
 				System.out.println("--------------------------------------------------------"); 
 				
+				boolean noError = false;
+				int userChoice1 = 0;
+				while(!noError) {
+					try {
+						System.out.print("Please enter your choice (1, 2 or 3): ");
+						userChoice1 = my_scanINT.nextInt();	
+						noError = true;
+					} catch(InputMismatchException e) {
+						System.out.println("Invalid Input! Please enter an integer (Format: 0): ");
+						my_scanINT.nextLine();
+					}
+				}
 				
-				System.out.print("Please enter your choice (1, 2 or 3): ");
-				int userChoice1 = my_scanINT.nextInt();	
 				
 				if(userChoice1 == 1) {System.out.print("My new first name: ");}
 				else if(userChoice1 == 2) {System.out.print("My new last name: ");}
@@ -217,30 +227,31 @@ public class Interface {
 			System.out.println("--------------------------------------------------------");
 			
 			int inputUserID = 0;
+			int userChoice = 0;
 			boolean done = false;
 			
 			while(!done) {	
 					try {
 						System.out.print("Please enter your choice (1, 2, 3 or 4): ");
-						int userChoice = my_scanINT.nextInt();
-						
+						userChoice = my_scanINT.nextInt();
+						done = true;
 					} 
 					catch (InputMismatchException e) {
-						System.out.println("Invalid Input! Please enter your choice (1, 2, 3 or 4): ");
-						userInputInt.nextLine();
+						System.out.println("Invalid Input! Please enter an integer (1, 2, 3 or 4): ");
+						my_scanINT.nextLine();
 					}
 				}	
 
 			// Retrieve from User class, to view client account details
 			if(userChoice==1){						
-				int inputUserID = 0;
-				boolean done = false;
+				
+				boolean noError = false;
 			
-				while(!done) {	
+				while(!noError) {	
 					try {
 						System.out.print ("What is the UserID of the Client Account you want to view?: ");									
 						inputUserID = userInputInt.nextInt();
-						done = true;	
+						noError = true;	
 					} 
 					catch (InputMismatchException e) {
 						System.out.println("Invalid Input! Enter a number (Format: 000)");
@@ -253,14 +264,14 @@ public class Interface {
 
 			// Retrieve from User class, to modify cleint account details
 			else if(userChoice==2) {
-				int inputUserID = 0;
-				boolean done = false;
+				
+				boolean complete = false;
 			
-				while(!done) {	
+				while(!complete) {	
 					try {
 						System.out.print ("What is the UserID of the Client Account you want to modify?: ");									
 						inputUserID = userInputInt.nextInt();
-						done = true;	
+						complete = true;	
 					} 
 					catch (InputMismatchException e) {
 						System.out.println("Invalid Input! Enter a number (Format: 000)");
@@ -275,8 +286,21 @@ public class Interface {
 				System.out.println("(3) Change Client Username");		
 				System.out.println("(4) Change Client Password"); 		
 				System.out.println("--------------------------------------------------------"); 
-				System.out.print("Please enter your choice (1, 2, 3 or 4): ");
-				int userChoice1 = my_scanINT.nextInt();	
+				
+				int userChoice1 = 0;
+				boolean error = true;
+				
+				while (error) {
+					try {
+						System.out.print("Please enter your choice (1, 2, 3 or 4): ");
+						userChoice1 = my_scanINT.nextInt();
+						error = false;
+					} catch (InputMismatchException e) {
+						System.out.println("Invalid Input! Enter a number (Format: 0)");
+						my_scanINT.nextLine();
+					}
+				}
+				
 				
 				if(userChoice1 == 1) {System.out.print("Account Holder's new first name: ");}
 				else if(userChoice1 == 2) {System.out.print("Account Holder's new last name: ");}
@@ -288,14 +312,14 @@ public class Interface {
 			
 			// Retrieve from User class, to delete client account
 			else if(userChoice==3) {
-				int inputUserID = 0;
-				boolean done = false;
+				
+				boolean finish = false;
 
-				while(!done) {	
+				while(!finish) {	
 					try {
 						System.out.print ("What is the UserID of the Client Account you want to delete?: ");									
 						inputUserID = userInputInt.nextInt();
-						done = true;	
+						finish = true;	
 					} 
 					catch (InputMismatchException e) {
 						System.out.println("Invalid Input! Enter a number (Format: 000)");
