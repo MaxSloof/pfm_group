@@ -36,10 +36,13 @@ public class Interface {
 			System.out.println("(2) Exit"); 
 			System.out.println("--------------------------------------------------------"); 
 			
-				
+			Boolean done = false;
+			
+			while(!done)	
 			try {
 				System.out.print("Please enter your choice (0, 1 or 2): ");
 				userChoice = my_scanINT.nextInt();
+				done = true;
 				
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid Input! Enter a number (0, 1 or 2) ");
