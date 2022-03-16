@@ -137,7 +137,7 @@ public class User {
 				System.out.println("The client's first name is: " + my_users[i].FirstName);
 				System.out.println("The client's last name is:  " + my_users[i].LastName);
 				System.out.println("The client's username is:   " + my_users[i].UserName);
-				System.out.println("The client's password is:   " + my_users[i].Password);
+				System.out.println("The client's password is:   *******");
 				System.out.println("The client's user ID is:    " + my_users[i].UserID);
 				System.out.println("The client's IBAN is:       "+ BankAccount.returnIban(clientUserID));
 				System.out.println("The client's balance is:    " + BankAccount.returnBalance(clientUserID));
