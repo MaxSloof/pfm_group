@@ -123,24 +123,17 @@ public class Interface {
 
 			// Retrieve balance from BankAccount class
 			if(userChoice==1){
-				System.out.println("\n***************************************");
-				System.out.println("*************** Overview **************");
-				System.out.println("***************************************");
-				System.out.printf("IBAN: %s\n", BankAccount.returnIban(my_loggedIn_account_holder.UserID));
-				System.out.printf("Bank balance: %.2f\n\n", BankAccount.returnBalance(my_loggedIn_account_holder.UserID));
-				;
+				User.viewMyBalance(my_loggedIn_account_holder.UserID);
 			}
-
-			// Sai can add his methods
+			
 			else if(userChoice==2) {
 				Transaction.depositFunds(my_loggedIn_account_holder.UserID);
 			}
 
-			// Sai can add his methods
 			else if(userChoice==3) {
 				Transaction.withdrawFunds(my_loggedIn_account_holder.UserID);
 			}
-			// Sai can add his methods
+			
 			else if(userChoice==4) {
 				Transaction.transferFunds(my_loggedIn_account_holder.UserID);
 			}
@@ -171,7 +164,6 @@ public class Interface {
 				
 				String input = userInputString.nextLine();
 					User.changeAccountElement(input, my_loggedIn_account_holder.UserID, userChoice1);
-
 			}
 
 			else if(userChoice==8){
