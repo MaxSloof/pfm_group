@@ -373,7 +373,7 @@ public class Interface {
 		}
 
 		// Create new UserID
-		TempNewUserID = returnIndex()+100;
+		TempNewUserID = returnIndex() + 1;
 		AccountType = "AccountHolder";
 
 		AccountHolderArray[AccountHolder.Num_account_holders] = new AccountHolder(TempNewUserID, TempFirstName, TempLastName, AccountType, TempNewUserName, TempNewUserPassword);
@@ -419,22 +419,18 @@ public class Interface {
 
 	// Index is used for creating unique UserID
 	public static int returnIndex(){ 
-		Interface[] stTemp = new Interface[100]; // 100 here is an upper bound 
-		int stIndex = 0; // keeps track of the line number 
-		try{ 
-			BufferedReader myFile = new BufferedReader (new FileReader("userdata.txt")); 
 
-			while ((myFile.readLine()) != null){ 
-				stIndex++; 
-			} 
-			myFile.close(); 
+		User[] my_users = User.ReadUserData(); // Read latest array
 
-		} catch(IOException e){ 
-			System.out.print("Wrong! (Reading)"); 
-		} 
-		Interface[] baArray = new Interface[stIndex]; 
-		System.arraycopy(stTemp, 0, baArray, 0, stIndex); 
-		return stIndex; 
+		int[] existingUserIDs = new int[100];
+		int topUserID = 0;
+
+		for(int i = 0; i < User.NumUser; i++) {
+
+			existingUserIDs[i] = my_users[i].UserID; // Create array of existing UserIDs
+			topUserID = Math.max(existingUserIDs[i], topUserID); 
+		}
+		return topUserID; // Return the top UserID
 
 	}			
 }

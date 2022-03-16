@@ -223,7 +223,7 @@ public class User {
 	
 	public static void deleteAccount(int clientUserID) { //Needs some work. Not completely running okay yet.
 		
-		User [] my_users_old = myUsers;
+		User [] my_users_old = ReadUserData();
 		User [] my_users_new = new User [NumUser - 1];
 
 		String[] firstNameArray = new String[100];
