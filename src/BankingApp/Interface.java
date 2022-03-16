@@ -116,7 +116,7 @@ public class Interface {
 			System.out.println("(2) Deposit to my Account");		
 			System.out.println("(3) Withdraw from my Account");		
 			System.out.println("(4) Transfer from my Account");		
-			System.out.println("(5) View Transaction History");	
+			System.out.println("(5) View my Transaction History");	
 			System.out.println("(6) View my Account");			
 			System.out.println("(7) Modify my Account");		
 			System.out.println("(8) Logout"); 
@@ -124,37 +124,37 @@ public class Interface {
 			System.out.print("Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): ");
 			int userChoice = my_scanINT.nextInt();
 
-			// Retrieve balance from BankAccount class 
+			// Retrieve balance from User class, to view balance
 			if(userChoice==1){
 				User.viewMyBalance(my_loggedIn_account_holder.UserID);
 			}
 			
-			// Retrieve from Transactions class
+			// Retrieve from Transactions class, to deposit to account
 			else if(userChoice==2) {
 				Transaction.depositFunds(my_loggedIn_account_holder.UserID);
 			}
 			
-			// Retrieve from Transactions class
+			// Retrieve from Transactions class, to withdraw from account
 			else if(userChoice==3) {
 				Transaction.withdrawFunds(my_loggedIn_account_holder.UserID);
 			}
 			
-			// Retrieve from Transactions class
+			// Retrieve from Transactions class, to transfer from account
 			else if(userChoice==4) {
 				Transaction.transferFunds(my_loggedIn_account_holder.UserID);
 			}
 		
-			// Retrieve from Transactions class
+			// Retrieve from Transactions class, to view transaction history
 			else if(userChoice==5){
 				Transaction.searchTransactions(my_loggedIn_account_holder.UserID);
 			} 
 
-			// Retrieve from User class
+			// Retrieve from User class, to view account details
 			else if(userChoice==6) {
 				User.viewMyAccount(my_loggedIn_account_holder.UserID);
 			}
 
-			// Retrieve from User class
+			// Retrieve from User class, to modify account details
 			else if(userChoice==7) {
 				System.out.println("--------------------------------------------------------"); 
 				System.out.println("What Account Detail would you like to modify?");
@@ -174,12 +174,13 @@ public class Interface {
 				String input = userInputString.nextLine();
 					User.changeAccountElement(input, my_loggedIn_account_holder.UserID, userChoice1);
 			}
-
+			
+			// Logout
 			else if(userChoice==8){
 				System.out.println("You are logged out"); break;
 			} 
 
-			// User enters anything other than options 1, 2, 3, 4, 5, 6, 7 or 8 (invalid)
+			// If user enters anything other than options 1, 2, 3, 4, 5, 6, 7 or 8 (invalid)
 			else System.out.println("Please enter valid choice");
 		}
 	}
@@ -201,7 +202,7 @@ public class Interface {
 			System.out.print("Please enter your choice (1, 2, 3 or 4): ");
 			int userChoice = my_scanINT.nextInt();
 
-			// Retrieve from Bank Employee class
+			// Retrieve from User class, to view client account details
 			if(userChoice==1){						
 				int inputUserID = 0;
 				boolean done = false;
@@ -221,7 +222,7 @@ public class Interface {
 				User.viewClientAccount(inputUserID);
 			}	
 
-			// Retrieve from Bank Employee class
+			// Retrieve from User class, to modify cleint account details
 			else if(userChoice==2) {
 				int inputUserID = 0;
 				boolean done = false;
@@ -248,7 +249,6 @@ public class Interface {
 				System.out.print("Please enter your choice (1, 2, 3 or 4): ");
 				int userChoice1 = my_scanINT.nextInt();	
 				
-				// Retrieve from Bank Employee class
 				if(userChoice1 == 1) {System.out.print("Account Holder's new first name: ");}
 				else if(userChoice1 == 2) {System.out.print("Account Holder's new last name: ");}
 				else if(userChoice1 == 3) {System.out.print("Account Holder's new username: ");}
@@ -258,7 +258,7 @@ public class Interface {
 
 			}
 			
-			// Retrieve from Bank Employee class
+			// Retrieve from User class, to delete client account
 			else if(userChoice==3) {
 				int inputUserID = 0;
 				boolean done = false;
@@ -278,11 +278,12 @@ public class Interface {
 				User.deleteAccount(inputUserID);
 			}
 
+			// Logout
 			else if(userChoice==4){
 				System.out.println("You are logged out"); break;
 			} 
 
-			// User enters anything other than options 1, 2, 3 or 4 (invalid)
+			// If user enters anything other than options 1, 2, 3 or 4 (invalid)
 			else System.out.println("Please enter valid choice");
 		}
 	}
@@ -330,6 +331,7 @@ public class Interface {
 	}
 
 
+	// This method adds a new entry to the file and at the end of the Userdata file 
 	public static void appendFile(String TempFirstName, String TempLastName, String TempNewUserName, String TempNewUserPassword, int TempNewUserID, String AccountType){
 
 		try{	
@@ -344,6 +346,7 @@ public class Interface {
 	}
 
 
+	// This method takes all Userdata and writes on the Userdata file from scratch 
 	public static void overWriteFile(String[] TempFirstName, String[] TempLastName, String[] TempNewUserName, 
 	String[] TempNewUserPassword, int[] TempNewUserID, String[] AccountType){
 		// TODO
