@@ -276,7 +276,7 @@ public class Interface {
 		}
 	}
 	
-
+	// User sign up method
 	public static void SignUp() {
 		System.out.print("Please enter your first name: ");
 		TempFirstName = my_scan.nextLine(); 
