@@ -121,9 +121,22 @@ public class Interface {
 			System.out.println("(7) Modify my Account");		
 			System.out.println("(8) Logout"); 
 			System.out.println("--------------------------------------------------------"); 
-			System.out.print("Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): ");
-			int userChoice = my_scanINT.nextInt();
-
+			
+			int inputUserID = 0;
+			boolean done = false;
+			
+			while(!done) {	
+					try {
+						System.out.print("Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): ");
+						int userChoice = my_scanINT.nextInt();
+						
+					} 
+					catch (InputMismatchException e) {
+						System.out.println("Invalid Input! Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): ");
+						userInputInt.nextLine();
+					}
+				}	
+			
 			// Retrieve balance from User class, to view balance
 			if(userChoice==1){
 				User.viewMyBalance(my_loggedIn_account_holder.UserID);
@@ -210,7 +223,7 @@ public class Interface {
 						
 					} 
 					catch (InputMismatchException e) {
-						System.out.println("Invalid Input! Please enter your choice (1, 2, 3 or 4): ")");
+						System.out.println("Invalid Input! Please enter your choice (1, 2, 3 or 4): ");
 						userInputInt.nextLine();
 					}
 				}	
