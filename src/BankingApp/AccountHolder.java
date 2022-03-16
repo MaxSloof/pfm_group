@@ -17,21 +17,21 @@ public class AccountHolder extends User {
 		// TODO Auto-generated constructor stub
 	}
 	
-	// **********Probably not necessary anymore******************
-	
+	// Account holder database 
 	public static AccountHolder[] accountHolderIDArray(User[] my_users_local){ 
 		String LocalFirstName, LocalLastName, LocalUserName, LocalPassword, LocalRole; 
 		int LocalID;
-		AccountHolder[] my_account_holders_local = new AccountHolder[NumUser]; //let the maximum number be number of accountholders 
+		AccountHolder[] my_account_holders_local = new AccountHolder[NumUser]; 				// The maximum number will be the number of account holders 
 		String[] current_line = new String[5];
 		int count = 0;
 		try{
-			BufferedReader my_reader = new BufferedReader(new FileReader("userdata.txt")); //declaring the reader object
-			String input_line; //variable to read line by line
+			BufferedReader my_reader = new BufferedReader(new FileReader("userdata.txt"));  // Declaring the reader object
+			String input_line; 																// Variable to read line by line
 			while( (input_line=my_reader.readLine()) != null){
-				current_line = input_line.split(","); //split the line at the tab
-				//Current_line is an array:
-				//Order in the database: FirstName, LastName, UserName, Password, ID, Role 
+				current_line = input_line.split(","); 										// Split the line at the tab
+				
+				// Current_line is an array:
+				// Order in the database: FirstName, LastName, UserName, Password, ID, Role 
 				LocalFirstName = current_line[0];
 				LocalLastName = current_line[1];
 				LocalUserName = current_line[2];
