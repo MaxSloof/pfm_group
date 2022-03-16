@@ -190,6 +190,37 @@ public class User {
 	}
 	
 	
+		public static void changeUserAccountElement(String newChangeElement, int loggedInUserID, int changeElement) {
+		User[] my_users_local = myUsers; 
+		
+		String[] firstNameArray = new String[100];
+		String[] lastNameArray 	= new String[100];
+		String[] usernameArray 	= new String[100];
+		String[] passwordArray 	= new String[100];
+		int[] 	 userIDArray 	= new int[100];
+		String[] roleArray 		= new String[100];
+		
+		for(int i = 0; i < NumUser; i++) {
+			if(my_users_local[i].UserID == loggedInUserID) {
+				if(changeElement == 1) {my_users_local[i].FirstName = newChangeElement;}
+				else if(changeElement == 2) {my_users_local[i].LastName = newChangeElement;}
+				else if(changeElement == 3) {my_users_local[i].UserName = newChangeElement;}
+				else if(changeElement == 4) {my_users_local[i].Password = newChangeElement;}
+				
+			}
+			firstNameArray[i] = my_users_local[i].FirstName;
+			lastNameArray[i]  = my_users_local[i].LastName;
+			usernameArray[i]  = my_users_local[i].UserName;
+			passwordArray[i]  = my_users_local[i].Password;
+			userIDArray[i] 	  = my_users_local[i].UserID;
+			roleArray[i] 	  = my_users_local[i].Role;	
+			
+
+			Interface.overWriteFile(firstNameArray, lastNameArray, usernameArray, passwordArray, userIDArray, roleArray);
+		}
+	}
+	
+	
 	public static void deleteAccount(int clientUserID) { //Needs some work. Not completely running okay yet.
 		User [] my_users_old = myUsers;
 		User [] my_users_new = new User [NumUser - 1];
