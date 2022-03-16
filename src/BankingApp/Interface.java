@@ -150,12 +150,7 @@ public class Interface {
 			} 
 
 			else if(userChoice==6) {
-				System.out.println("Your First Name is: "+ my_loggedIn_account_holder.FirstName);
-				System.out.println("Your Last Name is:  "+ my_loggedIn_account_holder.LastName);
-				System.out.println("Your Username is:   "+ my_loggedIn_account_holder.GetUserName(true));
-				System.out.println("Your Password is:   "+ my_loggedIn_account_holder.GetPassword(true));
-				System.out.println("Your UserID is:     "+ my_loggedIn_account_holder.UserID);
-				System.out.println("Your IBAN is:       "+ BankAccount.returnIban(my_loggedIn_account_holder.UserID));
+				User.viewMyAccount(my_loggedIn_account_holder.UserID);
 			}
 
 			else if(userChoice==7) {
