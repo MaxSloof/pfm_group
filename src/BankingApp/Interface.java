@@ -199,8 +199,21 @@ public class Interface {
 			System.out.println("(3) Delete Client Account");		
 			System.out.println("(4) Logout"); 
 			System.out.println("--------------------------------------------------------");
-			System.out.print("Please enter your choice (1, 2, 3 or 4): ");
-			int userChoice = my_scanINT.nextInt();
+			
+			int inputUserID = 0;
+			boolean done = false;
+			
+			while(!done) {	
+					try {
+						System.out.print("Please enter your choice (1, 2, 3 or 4): ");
+						int userChoice = my_scanINT.nextInt();
+						
+					} 
+					catch (InputMismatchException e) {
+						System.out.println("Invalid Input! Please enter your choice (1, 2, 3 or 4): ")");
+						userInputInt.nextLine();
+					}
+				}	
 
 			// Retrieve from User class, to view client account details
 			if(userChoice==1){						
