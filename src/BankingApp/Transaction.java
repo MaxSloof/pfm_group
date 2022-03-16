@@ -21,15 +21,15 @@ public class Transaction {
 	
 	
 	static Transaction[] transactions = new Transaction[100];
-
+// if user chooses to deposit funds into their account
 	public static void depositFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
 		double amount = 0;
 		
-		String loggedInIban = BankAccount.returnIban(loggedInUserID);
-		Date currentDate = new Date();
+		String loggedInIban = BankAccount.returnIban(loggedInUserID); //call loggedIn Iban
+		Date currentDate = new Date();									//retrieve the current date when executing transaction
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-		String date = dateFormat.format(currentDate);
+		String date = dateFormat.format(currentDate);		//formatting date in standardized form.
 		String fromIban = "------------------";
 		String toIban = loggedInIban; 
 		
@@ -39,49 +39,50 @@ public class Transaction {
 		while(!done) {
 			try {
 				System.out.print("Please enter the amount to be deposited (+): ");
-				userInputDouble.useLocale(Locale.US);
-				amount = userInputDouble.nextDouble();
+				userInputDouble.useLocale(Locale.US);		//forces decimal point
+				amount = userInputDouble.nextDouble();		//gets user input
 				done = true;
 				
 			} catch (InputMismatchException e) {
 				System.out.println("Invalid Input! Enter a number (Format: 0000 OR 00000.00");
-				userInputDouble.nextLine();
+				userInputDouble.nextLine();			//requires the user to input again if format not correct 
 		}
 		}
-		double newBalance = BankAccount.returnBalance(loggedInUserID) + amount;
+		double newBalance = BankAccount.returnBalance(loggedInUserID) + amount;		//retrieve balanceo of user and update it
 		
-		BankAccount.overwriteBalance(newBalance, toIban);
+		BankAccount.overwriteBalance(newBalance, toIban);		//update BankAccounts.txt file with new balance
 		System.out.println("****************************************************************"); 
 		System.out.print("New Balance is: ");
-		System.out.printf("%.2f %n",  newBalance);
+		System.out.printf("%.2f %n",  newBalance);		//present user with their updated balance.
 
 		transactions1[0] = new Transaction(date, fromIban, toIban, amount); 
-		writeFile(transactions1);
+		writeFile(transactions1);		//write to transactions.txt
 
 
 		}
-
+//If user chooses to withdraw funds form their account
 	public static void withdrawFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
-		String loggedInIban = BankAccount.returnIban(loggedInUserID);
+		String loggedInIban = BankAccount.returnIban(loggedInUserID); //get user's iban
 		
 		boolean done = false;
 		double balance = BankAccount.returnBalance(loggedInUserID); //logged in user's balance
 		double amount = 0;
 		
-		Date currentDate = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-		String date = dateFormat.format(currentDate);
+		Date currentDate = new Date();					//Retreive today's date 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");		
+		String date = dateFormat.format(currentDate);			//storing date in the correct format
 		String fromIban = loggedInIban; 
 		String toIban = "------------------";
 		
+		//catch input mismatches
 		while(!done) {
 			try {
 		System.out.print("Please enter the amount to be withdrawn: ");
 		userInputDouble.useLocale(Locale.US);
 		amount = userInputDouble.nextDouble();
 		
-			while (amount > balance) {
+			while (amount > balance) {			//Ensures the user cannot withdraw/ transact more than their balance
 				System.out.println("****************************************************************"); 
 				System.out.println("Withdrawal value exceeded your balance!");
 				System.out.print("Please enter the amount to be withdrawn: ");
@@ -95,32 +96,32 @@ public class Transaction {
 		}
 			double newBalance = balance - amount;
 		
-		BankAccount.overwriteBalance(newBalance, loggedInIban);
+		BankAccount.overwriteBalance(newBalance, loggedInIban);		//update user's balance in BankAccount file
 		System.out.println("****************************************************************"); 
 		System.out.print("New Balance is: ");
-		System.out.printf("%.2f %n", newBalance);
+		System.out.printf("%.2f %n", newBalance);			//print user's new balance
 
 		transactions1[0] = new Transaction(date, fromIban, toIban, amount); 
 		writeFile(transactions1);
 	}
 
 	
-	
+	//If user chooses to transfer funds to another account
 	public static void transferFunds(int loggedInUserID) {
 		Transaction[] transactions1 = new Transaction[1];
 		
 		double amount = 0;
-		String localLogIban = BankAccount.returnIban(loggedInUserID);
-		double fromBalance = BankAccount.returnBalance(loggedInUserID);
+		String localLogIban = BankAccount.returnIban(loggedInUserID);		//get loggedIn user iban
+		double fromBalance = BankAccount.returnBalance(loggedInUserID);		// get loggedIn user's balance
 		boolean done = false;
 		
-		Date currentDate = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-		String date = dateFormat.format(currentDate);
+		Date currentDate = new Date();				//get today's date
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");		
+		String date = dateFormat.format(currentDate);		//store date in the correct format.
 		String fromIban = localLogIban; 
 		String toIban = "";
 		
-		while(!done) {
+		while(!done) {		
 			try {
 				System.out.print("Please enter the iban of recepient: ");
 				toIban = userInputString.nextLine();
@@ -130,17 +131,18 @@ public class Transaction {
 			userInputString.nextLine();
 	}
 		}
-		int toUserID = BankAccount.returnUserID(toIban);
+		int toUserID = BankAccount.returnUserID(toIban);		//if the entered Iban exists in with our app, retrieves the userID of recepient 
+																//	BUT logged In user cannot see the userID of the receiver.
 
 		boolean noError = false;
 		
-		while(!noError) {
+		while(!noError) {				//catch input mismatches
 			try {
 				System.out.print("Please enter the amount to be transferred: ");
-				userInputDouble.useLocale(Locale.US);
+				userInputDouble.useLocale(Locale.US);				//force decimal point
 				amount = userInputDouble.nextDouble();
 					
-					while (amount > fromBalance) {
+					while (amount > fromBalance) {							//Ensures the user cannot withdraw/ transact more than their balance
 						System.out.println("****************************************************************"); 
 						System.out.println("Insufficient Funds!");
 						System.out.print("Please enter the amount to be transferred: ");
@@ -154,23 +156,23 @@ public class Transaction {
 		}
 		
 		
-		double toBalance = BankAccount.returnBalance(toUserID);	//??Make method in BankAccount class to return balance based on Iban
+		double toBalance = BankAccount.returnBalance(toUserID);				//based on reterived UserID, gets thier balance if IBan is registered with our app.
 
 		//local variables that represent new balances of both accounts 
 		double updatedFromBalance = fromBalance - amount;
 		double updatedToBalance = toBalance + amount;
 			
-		BankAccount.overwriteBalance(updatedFromBalance, fromIban);
+		BankAccount.overwriteBalance(updatedFromBalance, fromIban);			//updates loggedIn user's balance
 		System.out.println("****************************************************************"); 
 		System.out.println("New Balance is: " + updatedFromBalance);
 		
-		BankAccount.overwriteBalance(updatedToBalance, toIban); //this part works
+		BankAccount.overwriteBalance(updatedToBalance, toIban); 			//updatesss receiver's balance, IF Iban entered is registered with our app.
 			
 		transactions1[0] = new Transaction(date, fromIban, toIban, amount);
 		writeFile(transactions1);
 	}
 	
-	
+	//if user wants to see certain dates of transaction
 	public static void searchTransactions(int loggedInUserID) {
 		Transaction[] traArray = readFile();
 		String loggedInIban = BankAccount.returnIban(loggedInUserID);
@@ -188,7 +190,7 @@ public class Transaction {
 		
 		System.out.println("Transaction History: ");
 		  
-		for(int i= 0; i < numTra; i++) {
+		for(int i= 0; i < numTra; i++) {			//To find transactions made ONLY by loggedIn user depending on date
 			if (traArray[i].date.equals(localDate) && (traArray[i].fromIban.equals(loggedInIban) || traArray[i].toIban.equals(loggedInIban))) {
 				returnedDate[j] = traArray[i].date;
 				returnedFromIban[j] = traArray[i].fromIban;
@@ -198,7 +200,7 @@ public class Transaction {
 				}
 		
 		}
-		if(returnedDate[0] != null) {
+		if(returnedDate[0] != null) {		//prints transactions in console if found, otherwise prints "no transactions"
 			System.out.println("Date 	   | From Bank Account  | To Bank Account    | Amount in Euros");
 			for(int i = 0; i < j;i++) {
 				System.out.println(returnedDate[i] + " | " + returnedFromIban[i] + " | " + returnedToIban[i] + " | " +
