@@ -11,8 +11,8 @@ public class Interface {
 
 	static Scanner my_scan = new Scanner(System.in); //declaring scanner object to scan input from the user
 	static Scanner my_scanINT = new Scanner(System.in); //declaring scanner object to scan input from the user
-	static AccountHolder[] AccountHolderArray = new AccountHolder[100]; //let the maximum number = 20 
-	static BankEmployee[] BankEmployeeArray = new BankEmployee[100]; //let the maximum number = 20 
+	static AccountHolder[] AccountHolderArray = new AccountHolder[100]; //let the maximum number = 100 
+	static BankEmployee[] BankEmployeeArray = new BankEmployee[100]; //let the maximum number = 100 
 	static String[] current_line = new String[5];
 
 	static String TempFirstName, TempLastName, TempNewUserName, TempNewUserPassword, TempNewUserPasswordConfirm, AccountType;
@@ -37,17 +37,17 @@ public class Interface {
 			
 			Boolean done = false;
 			
-			while(!done)	
-			try {
-				System.out.print("Please enter your choice (0, 1 or 2): ");
-				userChoice = my_scanINT.nextInt();
-				done = true;
-				
-			} catch (InputMismatchException e) {
-				System.out.println("Invalid Input! Enter a number (0, 1 or 2) ");
-				my_scanINT.nextLine();
+			while(!done) {	
+				try {
+					System.out.print("Please enter your choice (0, 1 or 2): ");
+					userChoice = my_scanINT.nextInt();
+					done = true;
+					
+				} catch (InputMismatchException e) {
+					System.out.println("Invalid Input! Enter a number (0, 1 or 2) ");
+					my_scanINT.nextLine();
+				}
 			}
-			
 			// User chooses the option to sign up
 			if(userChoice==0) SignUp();
 			
