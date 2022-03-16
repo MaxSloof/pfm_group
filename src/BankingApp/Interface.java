@@ -128,12 +128,11 @@ public class Interface {
 			if(userChoice==1){
 				User.viewMyBalance(my_loggedIn_account_holder.UserID);
 			}
-			
-			// Retrieve from Transaction class
+		
 			else if(userChoice==2) {
 				Transaction.depositFunds(my_loggedIn_account_holder.UserID);
 			}
-
+			
 			else if(userChoice==3) {
 				Transaction.withdrawFunds(my_loggedIn_account_holder.UserID);
 			}
@@ -141,7 +140,7 @@ public class Interface {
 			else if(userChoice==4) {
 				Transaction.transferFunds(my_loggedIn_account_holder.UserID);
 			}
-			
+		
 			else if(userChoice==5){
 				Transaction.searchTransactions(my_loggedIn_account_holder.UserID);
 			} 
