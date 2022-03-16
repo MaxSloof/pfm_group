@@ -48,9 +48,11 @@ public class Interface {
 				System.out.println("Invalid Input! Enter a number (0, 1 or 2) ");
 				my_scanINT.nextLine();
 			}
-				
+			
+			// User chooses the option to sign up
 			if(userChoice==0) SignUp();
 			
+			// User chooses the option to log in
 			if(userChoice==1){
 				User[] my_users = User.ReadUserData();
 				AccountHolder[] my_account_holders = AccountHolder.accountHolderIDArray(my_users); //returns array of account holders together with balances
@@ -62,7 +64,7 @@ public class Interface {
 				System.out.print("Password: ");
 				String InputUserPassword = my_scan.nextLine();
 
-				//First check the bank employee DB:
+				// First read the bank employee DB to see if user is an employee
 				for(int i=0;i<BankEmployee.Num_bank_employees;i++){
 					LoggedInID = my_bank_employees[i].LoginMethod(InputUserName, InputUserPassword); 
 					if(LoggedInID>0){
@@ -72,7 +74,7 @@ public class Interface {
 						break;
 					}
 				}
-				//If not found in the bank employee DB, look into the account holder DB 
+				// If not found in the bank employee DB, look into the account holder DB 
 				if(LoggedInID==0){
 					for(int i=0;i<AccountHolder.Num_account_holders;i++){
 						LoggedInID = my_account_holders[i].LoginMethod(InputUserName, InputUserPassword); 
@@ -90,16 +92,19 @@ public class Interface {
 				else if(BankEmployeeLoggedIn) BankEmployeeInterface(my_bank_employees[LoggedInIndex],my_account_holders); 
 				else if(AccountHolderLoggedIn) AccountHolderInterface(my_account_holders[LoggedInIndex]);
 			}
-
+			
+			// User chooses the option to exit and exit message appears
 			else if (userChoice==2){
 				System.out.println("BYE!");
 				break; 
 			}
-
+			
+			// User enters anything other than options 0, 1 or 2
 			else System.out.println("Please enter a valid choice");
 		} 
 	}
-
+	
+	// User details were found in the account holder DB, user will be logged in
 	public static void AccountHolderInterface(AccountHolder my_loggedIn_account_holder){ 
 
 		System.out.println("You are now accessing the Account Holder's interface");
