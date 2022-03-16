@@ -9,7 +9,7 @@ public class BankEmployee extends User {
 	}
 
 	public static BankEmployee[] FilterBankEmployees(User[] my_users_local){
-		BankEmployee[] my_bank_employees_local = new BankEmployee[BankEmployee.Num_bank_employees]; //let the maximum number = 20 
+		BankEmployee[] my_bank_employees_local = new BankEmployee[BankEmployee.Num_bank_employees]; 
 		int counter =0;
 		for(int i=0;i<User.NumUser;i++) {
 
@@ -22,7 +22,6 @@ public class BankEmployee extends User {
 				counter++;
 			}
 		}
-
 		return(my_bank_employees_local);
 	}
 }

@@ -1,7 +1,6 @@
 package BankingApp;
 
 import java.io.*;
-import java.text.DecimalFormat;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
@@ -26,10 +25,10 @@ public class Transaction {
 		Transaction[] transactions1 = new Transaction[1];
 		double amount = 0;
 		
-		String loggedInIban = BankAccount.returnIban(loggedInUserID); //call loggedIn Iban
+		String loggedInIban = BankAccount.returnIban(loggedInUserID); 	//call loggedIn Iban
 		Date currentDate = new Date();									//retrieve the current date when executing transaction
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-		String date = dateFormat.format(currentDate);		//formatting date in standardized form.
+		String date = dateFormat.format(currentDate);					//formatting date in standardized form.
 		String fromIban = "------------------";
 		String toIban = loggedInIban; 
 		
@@ -115,9 +114,9 @@ public class Transaction {
 		double fromBalance = BankAccount.returnBalance(loggedInUserID);		// get loggedIn user's balance
 		boolean done = false;
 		
-		Date currentDate = new Date();				//get today's date
+		Date currentDate = new Date();										//get today's date
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");		
-		String date = dateFormat.format(currentDate);		//store date in the correct format.
+		String date = dateFormat.format(currentDate);						//store date in the correct format.
 		String fromIban = localLogIban; 
 		String toIban = "";
 		
@@ -132,15 +131,15 @@ public class Transaction {
 			userInputString.nextLine();
 	}
 		}
-		int toUserID = BankAccount.returnUserID(toIban);		//if the entered Iban exists in with our app, retrieves the userID of recepient 
-																//	BUT logged In user cannot see the userID of the receiver.
+		int toUserID = BankAccount.returnUserID(toIban);					//if the entered Iban exists in with our app, retrieves the userID of recepient 
+																			// BUT logged In user cannot see the userID of the receiver.
 
 		boolean noError = false;
 		
-		while(!noError) {				//catch input mismatches
+		while(!noError) {													//catch input mismatches
 			try {
 				System.out.print("Please enter the amount to be transferred: ");
-				userInputDouble.useLocale(Locale.US);				//force decimal point
+				userInputDouble.useLocale(Locale.US);						//force decimal point
 				amount = userInputDouble.nextDouble();
 					
 					while (amount > fromBalance) {							//Ensures the user cannot withdraw/ transact more than their balance
@@ -185,7 +184,7 @@ public class Transaction {
 		
 		int j = 0; // Counter for returned.. arrays
 
-		//getting user input for specific dates
+		// Getting user input for specific dates
 		System.out.print("Please enter the date of transactions you want to see (YYYY/MM/DD): ");
 		String localDate = userInputString.nextLine();
 		
@@ -193,7 +192,7 @@ public class Transaction {
 		System.out.println("--------------------------------------------------------");
 		System.out.println("Transaction History: ");
 		  
-		for(int i= 0; i < numTra; i++) {			//To find transactions made ONLY by loggedIn user depending on date
+		for(int i= 0; i < numTra; i++) {			// To find transactions made ONLY by loggedIn user depending on date
 			if (traArray[i].date.equals(localDate) && (traArray[i].fromIban.equals(loggedInIban) || traArray[i].toIban.equals(loggedInIban))) {
 				returnedDate[j] = traArray[i].date;
 				returnedFromIban[j] = traArray[i].fromIban;
@@ -203,7 +202,7 @@ public class Transaction {
 				}
 		
 		}
-		if(returnedDate[0] != null) {		//prints transactions in console if found, otherwise prints "no transactions"
+		if(returnedDate[0] != null) {		// Prints transactions in console if found, otherwise prints "no transactions"
 			System.out.println("Date 	   | From Bank Account  | To Bank Account    | Amount (Euros)");
 			for(int i = 0; i < j;i++) {
 				System.out.println(returnedDate[i] + " | " + returnedFromIban[i] + " | " + returnedToIban[i] + " | " +

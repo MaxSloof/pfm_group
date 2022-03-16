@@ -97,8 +97,6 @@ public class BankAccount {
 
 		BankAccount[] baArrayLocal = readFile();
 		
-
-		
 		try{
 			PrintWriter wr = new PrintWriter(
 					new BufferedWriter (new FileWriter ("bankaccounts.txt", false)));			
@@ -142,6 +140,7 @@ public class BankAccount {
 				BankAccount.numBA++;
 			} 
 			myFile.close();
+
 		} catch(IOException e){ 
 			System.out.print("Wrong! (writing)"); 
 		} 
@@ -189,7 +188,7 @@ public class BankAccount {
 		
 	}
 
-	
+	// Returns IBAN based on UserID
 	public static String returnIban(int loggedInUserID){ 
 		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
 		String localIban, loggedInIban = "";
@@ -229,6 +228,7 @@ public class BankAccount {
 		
 	}
 
+	// Returns the UserID based on IBAN
 	public static int returnUserID(String Iban){ 
 		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
 		String localIban;
@@ -267,7 +267,7 @@ public class BankAccount {
 		return(toUserID);
 		
 	}
-	// Returning the index of the latest line, so that I can create a new file
+	// Index is used for creating unique BankID
 	public static int returnIndex(){ 
 		BankAccount[] stTemp = new BankAccount[100]; // 100 here is an upper bound 
 		int stIndex = 0; // keeps track of the line number 

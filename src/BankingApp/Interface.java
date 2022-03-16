@@ -1,7 +1,6 @@
 package BankingApp;
 
 import java.io.*;
-import java.text.DecimalFormat;
 import java.util.*;
 
 public class Interface {
@@ -121,8 +120,21 @@ public class Interface {
 			System.out.println("(7) Modify my Account");		
 			System.out.println("(8) Logout"); 
 			System.out.println("--------------------------------------------------------"); 
-			System.out.print("Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): ");
-			int userChoice = my_scanINT.nextInt();
+			
+			int userChoice = 0;
+			Boolean done = false;
+			while(!done) {	
+				try {
+					System.out.print("Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): ");
+					userChoice = my_scanINT.nextInt();
+					done = true;
+					
+				} catch (InputMismatchException e) {
+					System.out.println("Invalid Input! Enter a number (1, 2, 3, 4, 5, 6, 7 or 8) ");
+					my_scanINT.nextLine();
+				}
+			}
+			
 
 			// Retrieve balance from User class, to view balance
 			if(userChoice==1){
@@ -160,16 +172,20 @@ public class Interface {
 				System.out.println("What Account Detail would you like to modify?");
 				System.out.println("(1) Change my First Name");		
 				System.out.println("(2) Change my Last Name");		
-				System.out.println("(3) Change my Username");		
-				System.out.println("(4) Change my Password"); 		
+				System.out.println("(3) Change my Password");			
 				System.out.println("--------------------------------------------------------"); 
-				System.out.print("Please enter your choice (1, 2, 3 or 4): ");
+				
+				
+				System.out.print("Please enter your choice (1, 2 or 3): ");
 				int userChoice1 = my_scanINT.nextInt();	
 				
 				if(userChoice1 == 1) {System.out.print("My new first name: ");}
 				else if(userChoice1 == 2) {System.out.print("My new last name: ");}
-				else if(userChoice1 == 3) {System.out.print("My new username: ");}
-				else if(userChoice1 == 4) {System.out.print("My new password: ");}
+				else if(userChoice1 == 3) {System.out.print("My new password: ");}
+				else {
+					System.out.println("Invalid choice");
+					continue;
+				}
 				
 				String input = userInputString.nextLine();
 					User.changeAccountElement(input, my_loggedIn_account_holder.UserID, userChoice1);
@@ -364,7 +380,7 @@ public class Interface {
 		
 	}	
 
-	
+	// Index is used for creating unique UserID
 	public static int returnIndex(){ 
 		Interface[] stTemp = new Interface[100]; // 100 here is an upper bound 
 		int stIndex = 0; // keeps track of the line number 

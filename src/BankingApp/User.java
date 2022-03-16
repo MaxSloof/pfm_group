@@ -1,7 +1,6 @@
 package BankingApp;
 
 import java.io.*;
-import java.util.Scanner;
 
 
 public class User {
@@ -175,8 +174,7 @@ public class User {
 			if(my_users_local[i].UserID == loggedInUserID) {
 				if(changeElement == 1) {my_users_local[i].FirstName = newChangeElement;}
 				else if(changeElement == 2) {my_users_local[i].LastName = newChangeElement;}
-				else if(changeElement == 3) {my_users_local[i].UserName = newChangeElement;}
-				else if(changeElement == 4) {my_users_local[i].Password = newChangeElement;}
+				else if(changeElement == 3) {my_users_local[i].Password = newChangeElement;}
 				
 			}
 			firstNameArray[i] = my_users_local[i].FirstName;
