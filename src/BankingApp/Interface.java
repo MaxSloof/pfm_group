@@ -99,12 +99,12 @@ public class Interface {
 				break; 
 			}
 			
-			// User enters anything other than options 0, 1 or 2
+			// User enters anything other than options 0, 1 or 2 (invalid)
 			else System.out.println("Please enter a valid choice");
 		} 
 	}
 	
-	// User details were found in the account holder DB, user will be logged in
+	// User details were found in the account holder DB, user is recognized and will be logged in
 	public static void AccountHolderInterface(AccountHolder my_loggedIn_account_holder){ 
 
 		System.out.println("You are now accessing the Account Holder's interface");
@@ -124,31 +124,37 @@ public class Interface {
 			System.out.print("Please enter your choice (1, 2, 3, 4, 5, 6, 7 or 8): ");
 			int userChoice = my_scanINT.nextInt();
 
-			// Retrieve balance from BankAccount class
+			// Retrieve balance from BankAccount class 
 			if(userChoice==1){
 				User.viewMyBalance(my_loggedIn_account_holder.UserID);
 			}
-		
+			
+			// Retrieve from Transactions class
 			else if(userChoice==2) {
 				Transaction.depositFunds(my_loggedIn_account_holder.UserID);
 			}
 			
+			// Retrieve from Transactions class
 			else if(userChoice==3) {
 				Transaction.withdrawFunds(my_loggedIn_account_holder.UserID);
 			}
 			
+			// Retrieve from Transactions class
 			else if(userChoice==4) {
 				Transaction.transferFunds(my_loggedIn_account_holder.UserID);
 			}
 		
+			// Retrieve from Transactions class
 			else if(userChoice==5){
 				Transaction.searchTransactions(my_loggedIn_account_holder.UserID);
 			} 
 
+			// Retrieve from User class
 			else if(userChoice==6) {
 				User.viewMyAccount(my_loggedIn_account_holder.UserID);
 			}
 
+			// Retrieve from User class
 			else if(userChoice==7) {
 				System.out.println("--------------------------------------------------------"); 
 				System.out.println("What Account Detail would you like to modify?");
@@ -173,13 +179,13 @@ public class Interface {
 				System.out.println("You are logged out"); break;
 			} 
 
-
+			// User enters anything other than options 1, 2, 3, 4, 5, 6, 7 or 8 (invalid)
 			else System.out.println("Please enter valid choice");
 		}
 	}
 
 
-
+	// User details were found in the account holder DB, user is recognized and will be logged in
 	public static void BankEmployeeInterface(BankEmployee my_loggedIn_bank_employee, AccountHolder[] my_account_holders_local){ 
 
 		System.out.println("You are now accessing the Bank Employee's interface");
@@ -195,6 +201,7 @@ public class Interface {
 			System.out.print("Please enter your choice (1, 2, 3 or 4): ");
 			int userChoice = my_scanINT.nextInt();
 
+			// Retrieve from Bank Employee class
 			if(userChoice==1){						
 				int inputUserID = 0;
 				boolean done = false;
@@ -214,6 +221,7 @@ public class Interface {
 				User.viewClientAccount(inputUserID);
 			}	
 
+			// Retrieve from Bank Employee class
 			else if(userChoice==2) {
 				int inputUserID = 0;
 				boolean done = false;
@@ -240,6 +248,7 @@ public class Interface {
 				System.out.print("Please enter your choice (1, 2, 3 or 4): ");
 				int userChoice1 = my_scanINT.nextInt();	
 				
+				// Retrieve from Bank Employee class
 				if(userChoice1 == 1) {System.out.print("Account Holder's new first name: ");}
 				else if(userChoice1 == 2) {System.out.print("Account Holder's new last name: ");}
 				else if(userChoice1 == 3) {System.out.print("Account Holder's new username: ");}
@@ -248,7 +257,8 @@ public class Interface {
 					User.changeAccountElement(input, inputUserID, userChoice1);
 
 			}
-
+			
+			// Retrieve from Bank Employee class
 			else if(userChoice==3) {
 				int inputUserID = 0;
 				boolean done = false;
@@ -272,6 +282,7 @@ public class Interface {
 				System.out.println("You are logged out"); break;
 			} 
 
+			// User enters anything other than options 1, 2, 3 or 4 (invalid)
 			else System.out.println("Please enter valid choice");
 		}
 	}
