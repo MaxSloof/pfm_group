@@ -50,8 +50,6 @@ public class Interface {
 			}
 				
 			if(userChoice==0) SignUp();
-
-			
 			
 			if(userChoice==1){
 				User[] my_users = User.ReadUserData();
@@ -211,7 +209,6 @@ public class Interface {
 				User.viewClientAccount(inputUserID);
 			}	
 
-
 			else if(userChoice==2) {
 				int inputUserID = 0;
 				boolean done = false;
@@ -247,7 +244,6 @@ public class Interface {
 
 			}
 
-
 			else if(userChoice==3) {
 				int inputUserID = 0;
 				boolean done = false;
@@ -267,18 +263,14 @@ public class Interface {
 				User.deleteAccount(inputUserID);
 			}
 
-			
 			else if(userChoice==4){
 				System.out.println("You are logged out"); break;
 			} 
 
-
 			else System.out.println("Please enter valid choice");
 		}
 	}
-
-
-
+	
 
 	public static void SignUp() {
 		System.out.print("Please enter your first name: ");
@@ -322,8 +314,6 @@ public class Interface {
 	}
 
 
-
-
 	public static void appendFile(String TempFirstName, String TempLastName, String TempNewUserName, String TempNewUserPassword, int TempNewUserID, String AccountType){
 
 		try{	
@@ -356,6 +346,7 @@ public class Interface {
 		
 	}	
 
+	
 	public static int returnIndex(){ 
 		Interface[] stTemp = new Interface[100]; // 100 here is an upper bound 
 		int stIndex = 0; // keeps track of the line number 
