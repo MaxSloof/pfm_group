@@ -416,18 +416,18 @@ public class Interface {
 		}
 		
 	}	
-
+0
 	// Index is used for creating unique UserID
 	public static int returnIndex(){ 
 
-		User[] my_users = User.ReadUserData(); // Read latest array
+		BankAccount[] baArray = BankAccount.readBankAccountFile(); // Read latest array
 
 		int[] existingUserIDs = new int[100];
 		int topUserID = 0;
 
-		for(int i = 0; i < User.NumUser; i++) {
+		for(int i = 0; i < BankAccount.numBA; i++) {
 
-			existingUserIDs[i] = my_users[i].UserID; // Create array of existing UserIDs
+			existingUserIDs[i] = baArray[i].userID; // Create array of existing UserIDs
 			topUserID = Math.max(existingUserIDs[i], topUserID); 
 		}
 		return topUserID; // Return the top UserID

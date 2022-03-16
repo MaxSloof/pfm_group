@@ -95,7 +95,7 @@ public class BankAccount {
 	public static void overwriteBalance(double newBalance, String loggedInIban) {
 		// TODO Auto-generated method stub
 
-		BankAccount[] baArrayLocal = readFile();
+		BankAccount[] baArrayLocal = readBankAccountFile();
 		
 		try{
 			PrintWriter wr = new PrintWriter(
@@ -115,7 +115,7 @@ public class BankAccount {
 	}
 
 	// Reading the bankaccounts file (necessary for overwriteBalance)
-	public static BankAccount[] readFile() {
+	public static BankAccount[] readBankAccountFile() {
 		// TODO Auto-generated method stub
 		BankAccount[] my_ba_local = new BankAccount[100]; // 100 here is an upper bound 
 		String localIban;
